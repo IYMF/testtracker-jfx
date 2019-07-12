@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DatabaseUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">testtracker</a> &gt; <a href="index.source.html" class="el_package">test_tracker</a> &gt; <span class="el_source">DatabaseUtil.java</span></div><h1>DatabaseUtil.java</h1><pre class="source lang-java linenums">package test_tracker;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class DatabaseUtil {
+    private static final String USER = &quot;root&quot;;
+    private static final String PASSWORD = &quot;novell&quot;;
+    private static final String DB_URL = &quot;jdbc:mariadb://151.155.216.38:3306/test?user=&quot; + USER + &quot;&amp;password=&quot; + PASSWORD;
+
+<span class="fc" id="L15">    private static final Logger LOGGER = Logger.getLogger(DatabaseUtil.class.getName());</span>
+
+    private DatabaseUtil() {}
+
+    private static Statement createStatement(Connection conn) {
+<span class="fc" id="L20">        Statement statement = null;</span>
+
+        try {
+<span class="fc" id="L23">            statement = conn.createStatement();</span>
+<span class="nc" id="L24">        } catch (SQLException e) {</span>
+<span class="nc" id="L25">            LOGGER.log(Level.SEVERE, &quot;Cannot create Statement: &quot;, e);</span>
+<span class="fc" id="L26">        }</span>
+
+<span class="fc" id="L28">        return statement;</span>
+    }
+
+    private static ResultSet createResultSet(Statement st, String query) {
+<span class="fc" id="L32">        ResultSet resultSet = null;</span>
+
+        try {
+<span class="fc" id="L35">            resultSet = st.executeQuery(query);</span>
+<span class="nc" id="L36">        } catch (SQLException e) {</span>
+<span class="nc" id="L37">            LOGGER.log(Level.SEVERE, &quot;Cannot create ResultSet: &quot; + query, e);</span>
+<span class="fc" id="L38">        }</span>
+
+<span class="fc" id="L40">        return resultSet;</span>
+    }
+
+    public static ObservableList&lt;String&gt; getSections() {
+<span class="fc" id="L44">        ObservableList&lt;String&gt; results = FXCollections.observableArrayList();</span>
+
+<span class="fc" id="L46">        try (Connection conn = DriverManager.getConnection(DB_URL)) {</span>
+<span class="fc" id="L47">            Statement st = createStatement(conn);</span>
+<span class="fc" id="L48">            ResultSet rs = createResultSet(st, &quot;SELECT sectionName FROM sections&quot;);</span>
+
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">            if (rs != null) {</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">                while (rs.next()) {</span>
+<span class="fc" id="L52">                    results.add(rs.getString(&quot;sectionName&quot;));</span>
+                }
+            }
+<span class="nc" id="L55">        } catch (Exception e) {</span>
+<span class="nc" id="L56">            LOGGER.log(Level.SEVERE, &quot;SQL exception in getSections(): &quot;, e);</span>
+<span class="fc" id="L57">        }</span>
+
+<span class="fc" id="L59">        return results;</span>
+    }
+
+    public static ObservableList&lt;String&gt; getProducts() {
+<span class="fc" id="L63">        ObservableList&lt;String&gt; results = FXCollections.observableArrayList();</span>
+
+<span class="fc" id="L65">        try (Connection conn = DriverManager.getConnection(DB_URL)) {</span>
+<span class="fc" id="L66">            Statement st = createStatement(conn);</span>
+<span class="fc" id="L67">            ResultSet rs = createResultSet(st, &quot;SELECT productName FROM products&quot;);</span>
+
+<span class="pc bpc" id="L69" title="1 of 2 branches missed.">            if (rs != null) {</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">                while (rs.next()) {</span>
+<span class="fc" id="L71">                    results.add(rs.getString(&quot;productName&quot;));</span>
+                }
+            }
+<span class="nc" id="L74">        } catch (Exception e) {</span>
+<span class="nc" id="L75">            LOGGER.log(Level.SEVERE, &quot;SQL exception in getProducts(): &quot;, e);</span>
+<span class="fc" id="L76">        }</span>
+
+<span class="fc" id="L78">        return results;</span>
+    }
+
+    public static ResultSet getTests() {
+<span class="fc" id="L82">        try (Connection conn = DriverManager.getConnection(DB_URL)) {</span>
+<span class="fc" id="L83">            Statement st = createStatement(conn);</span>
+<span class="fc" id="L84">            return createResultSet(st, &quot;SELECT * FROM tests&quot;);</span>
+<span class="nc" id="L85">        } catch (Exception e) {</span>
+<span class="nc" id="L86">            LOGGER.log(Level.SEVERE, &quot;SQL exception in getTests(): &quot;, e);</span>
+<span class="nc" id="L87">            return null;</span>
+        }
+    }
+
+    public static ObservableList&lt;Row&gt; getRows(int id) {
+<span class="fc" id="L92">        ObservableList&lt;Row&gt; results = FXCollections.observableArrayList();</span>
+
+        try  {
+<span class="fc" id="L95">            Connection conn = DriverManager.getConnection(DB_URL);</span>
+<span class="fc" id="L96">            Statement st = createStatement(conn);</span>
+<span class="fc" id="L97">            ResultSet rs = createResultSet(st, &quot;SELECT * from servers where testID = &quot; + id);</span>
+
+<span class="pc bpc" id="L99" title="1 of 2 branches missed.">            if (rs != null) {</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">                while (rs.next()) {</span>
+<span class="fc" id="L101">                    results.add(new Row(rs.getString(&quot;description&quot;), rs.getString(&quot;ip&quot;), rs.getString(&quot;esxIP&quot;)));</span>
+                }
+            }
+<span class="nc" id="L104">        } catch (Exception e) {</span>
+<span class="nc" id="L105">            LOGGER.log(Level.SEVERE, &quot;SQL exception in getRows(): &quot;, e);</span>
+<span class="fc" id="L106">        }</span>
+
+<span class="fc" id="L108">        return results;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

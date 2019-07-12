@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Row.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">testtracker</a> &gt; <a href="index.source.html" class="el_package">test_tracker</a> &gt; <span class="el_source">Row.java</span></div><h1>Row.java</h1><pre class="source lang-java linenums">package test_tracker;
+
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
+public class Row {
+    private final SimpleStringProperty description;
+    private final SimpleStringProperty ip;
+    private final SimpleStringProperty esxIp;
+//    private final SimpleIntegerProperty testID;
+
+<span class="fc" id="L12">    public Row(String description, String ip, String esxIp) {</span>
+<span class="fc" id="L13">        this.description = new SimpleStringProperty(description);</span>
+<span class="fc" id="L14">        this.ip = new SimpleStringProperty(ip);</span>
+<span class="fc" id="L15">        this.esxIp = new SimpleStringProperty(esxIp);</span>
+//        this.testID = new SimpleIntegerProperty(testID);
+<span class="fc" id="L17">    }</span>
+
+    public String getDescription() {
+<span class="fc" id="L20">        return this.description.get();</span>
+    }
+
+    public void setDescription(String desc) {
+<span class="nc" id="L24">        this.description.set(desc);</span>
+<span class="nc" id="L25">    }</span>
+
+    public String getIp() {
+<span class="fc" id="L28">        return this.ip.get();</span>
+    }
+
+    public void setIp(String ip) {
+<span class="nc" id="L32">        this.description.set(ip);</span>
+<span class="nc" id="L33">    }</span>
+
+    public String getEsxIp() {
+<span class="fc" id="L36">        return this.esxIp.get();</span>
+    }
+
+    public void setEsxIp(String esxIp) {
+<span class="nc" id="L40">        this.description.set(esxIp);</span>
+<span class="nc" id="L41">    }</span>
+
+//    public int getTestID() {
+//        return testID.get();
+//    }
+
+    public String toString() {
+<span class="nc" id="L48">        return this.description + &quot;, &quot; + this.ip + &quot;, &quot; + this.esxIp;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

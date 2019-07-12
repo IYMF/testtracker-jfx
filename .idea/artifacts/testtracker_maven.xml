@@ -1,0 +1,27 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="testtracker-maven">
+    <output-path>$PROJECT_DIR$/out/artifacts/testtracker_maven</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="test_tracker.Main" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="title" value="" />
+        <option name="vendor" value="" />
+        <option name="version" value="" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="testtracker_maven.jar">
+        <element id="module-output" name="testtracker-maven" />
+        <element id="library" level="project" name="com.google.guava:guava:14.0.1" />
+        <element id="library" level="project" name="junit:junit:4.12" />
+        <element id="library" level="project" name="Maven: org.mariadb.jdbc:mariadb-java-client:2.4.2" />
+        <element id="library" level="project" name="org.hamcrest:hamcrest-junit:2.0.0.0" />
+        <element id="library" level="project" name="org.loadui:testFx:3.1.2" />
+        <element id="library" level="project" name="org.testfx:testfx-core:4.0.15-alpha" />
+        <element id="library" level="project" name="org.testfx:testfx-junit:4.0.15-alpha" />
+      </element>
+    </root>
+  </artifact>
+</component>
