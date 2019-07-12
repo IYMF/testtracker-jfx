@@ -6,7 +6,12 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="86e30065-ce02-4463-a86a-9f9d0834c744" name="Default Changelist" comment="" />
+    <list default="true" id="86e30065-ce02-4463-a86a-9f9d0834c744" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot1562263009124.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot1562263170047.png" beforeDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,7 +34,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/test_tracker/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="510">
-              <caret line="181" column="117" lean-forward="true" selection-start-line="181" selection-start-column="117" selection-end-line="181" selection-end-column="117" />
+              <caret line="181" column="117" selection-start-line="181" selection-start-column="117" selection-end-line="181" selection-end-column="117" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -122,6 +127,9 @@
       <find>table</find>
     </findStrings>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -170,6 +178,7 @@
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -208,26 +217,6 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="test_tracker" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="testtracker-maven" type="b2602c69:ProjectViewProjectNode" />
-              <item name="testtracker-maven" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="testtracker-maven" type="b2602c69:ProjectViewProjectNode" />
-              <item name="testtracker-maven" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="testtracker-maven" type="b2602c69:ProjectViewProjectNode" />
-              <item name="testtracker-maven" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -243,7 +232,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1562945353177" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1562945779760" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -376,7 +365,7 @@
       <updated>1562015305797</updated>
       <workItem from="1562015309307" duration="21855000" />
       <workItem from="1562098702833" duration="850000" />
-      <workItem from="1562099590983" duration="86751000" />
+      <workItem from="1562099590983" duration="87323000" />
     </task>
     <servers />
   </component>
@@ -413,7 +402,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="109456000" />
+    <option name="totallyTimeSpent" value="110028000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -622,7 +611,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/test_tracker/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
-          <caret line="181" column="117" lean-forward="true" selection-start-line="181" selection-start-column="117" selection-end-line="181" selection-end-column="117" />
+          <caret line="181" column="117" selection-start-line="181" selection-start-column="117" selection-end-line="181" selection-end-column="117" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
