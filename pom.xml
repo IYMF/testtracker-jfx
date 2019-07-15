@@ -40,7 +40,7 @@
                 <version>2.19.1</version>
             </plugin>
             <plugin>
-                <!--Test-->
+                <!--Test--> 
                 <!-- This is the plugin that includes dependencies and fixed my mariadb driver error -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
