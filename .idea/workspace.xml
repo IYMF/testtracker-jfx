@@ -7,10 +7,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="86e30065-ce02-4463-a86a-9f9d0834c744" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenshot1562263009124.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenshot1562263170047.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/test_tracker/Main$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/test_tracker/Main$1$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/test_tracker/Main$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/test_tracker/Main$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/test_tracker/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/test_tracker/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/jacoco.exec" beforeDir="false" afterPath="$PROJECT_DIR$/target/jacoco.exec" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-sessions.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-sessions.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/test_tracker/Main$1$1.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/test_tracker/Main$1$1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/test_tracker/Main$1.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/test_tracker/Main$1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/test_tracker/Main.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/test_tracker/Main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/test_tracker/Main.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/test_tracker/Main.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/test_tracker/Table.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/test_tracker/Table.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/test_tracker/Table.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/test_tracker/Table.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/test_tracker/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/test_tracker/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/test_tracker/index.source.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/test_tracker/index.source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/sonar/report-task.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/sonar/report-task.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-test_tracker.ConfirmBoxTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-test_tracker.ConfirmBoxTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-test_tracker.MainTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-test_tracker.MainTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/test_tracker.ConfirmBoxTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/test_tracker.ConfirmBoxTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/test_tracker.MainTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/test_tracker.MainTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/testtracker-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/testtracker-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/testtracker.jar" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,16 +42,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="789">
-              <caret line="118" column="21" selection-start-line="118" selection-start-column="21" selection-end-line="118" selection-end-column="21" />
+            <state relative-caret-position="405">
+              <caret line="42" column="24" selection-start-line="42" selection-start-column="24" selection-end-line="42" selection-end-column="24" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/test_tracker/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="510">
@@ -125,6 +146,8 @@
     <findStrings>
       <find>machines</find>
       <find>table</find>
+      <find>center</find>
+      <find>sonar</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -149,8 +172,8 @@
         <option value="$PROJECT_DIR$/src/test/java/test_tracker/MainTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/test_tracker/Table.java" />
         <option value="$PROJECT_DIR$/src/main/java/test_tracker/DatabaseUtil.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/test_tracker/Main.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -232,7 +255,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1562945779760" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1563218556152" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -365,7 +388,7 @@
       <updated>1562015305797</updated>
       <workItem from="1562015309307" duration="21855000" />
       <workItem from="1562098702833" duration="850000" />
-      <workItem from="1562099590983" duration="87323000" />
+      <workItem from="1562099590983" duration="91680000" />
     </task>
     <servers />
   </component>
@@ -402,7 +425,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="110028000" />
+    <option name="totallyTimeSpent" value="114385000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -426,12 +449,12 @@
       <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" auto_hide="true" id="Java Enterprise" weight="0.32936078" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="1" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="1" visible="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Database Changes" order="2" />
       <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.50053304" side_tool="true" weight="0.2936078" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="6" sideWeight="0.49946696" visible="true" weight="0.24702059" />
+      <window_info anchor="bottom" id="Terminal" order="6" sideWeight="0.49946696" weight="0.25460455" />
       <window_info anchor="bottom" id="Run" order="7" sideWeight="0.49946696" weight="0.28403002" />
       <window_info anchor="bottom" id="Debug" order="8" weight="0.39978564" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
@@ -593,13 +616,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="789">
-          <caret line="118" column="21" selection-start-line="118" selection-start-column="21" selection-end-line="118" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/images/openVSphere.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -615,6 +631,13 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="42" column="24" selection-start-line="42" selection-start-column="24" selection-end-line="42" selection-end-column="24" />
         </state>
       </provider>
     </entry>
