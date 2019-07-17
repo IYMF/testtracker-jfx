@@ -1,9 +1,8 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-testtracker,test_tracker,Main,33,557,2,12,12,106,7,10,6,4
-testtracker,test_tracker,Main.new EventHandler() {...},19,9,0,0,3,1,1,1,1,1
+testtracker,test_tracker,Main,94,565,2,12,23,109,9,11,8,5
+testtracker,test_tracker,Main.new EventHandler() {...},80,18,2,0,16,1,5,1,4,1
 testtracker,test_tracker,VSphereUtil,32,0,0,0,8,0,2,0,2,0
 testtracker,test_tracker,Row,33,33,0,0,7,8,4,4,4,4
 testtracker,test_tracker,ConfirmBox,114,0,0,0,27,0,3,0,3,0
-testtracker,test_tracker,Table,3,31,0,0,1,11,1,5,1,5
-testtracker,test_tracker,Main.1.new EventHandler() {...},29,0,0,0,6,0,2,0,2,0
+testtracker,test_tracker,Table,30,31,4,0,5,11,4,5,2,5
 testtracker,test_tracker,DatabaseUtil,45,137,3,9,13,39,3,10,0,7

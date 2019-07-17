@@ -2,5 +2,5 @@ projectKey=org.testtracker:testtracker
 serverUrl=http://151.155.216.42:9000/sonarqube
 serverVersion=7.7.0.23042
 dashboardUrl=http://151.155.216.42:9000/sonarqube/dashboard?id=org.testtracker%3Atesttracker
-ceTaskId=AWv3YkO93BDJdommho-o
-ceTaskUrl=http://151.155.216.42:9000/sonarqube/api/ce/task?id=AWv3YkO93BDJdommho-o
+ceTaskId=AWwBg8CZ3BDJdommho-t
+ceTaskUrl=http://151.155.216.42:9000/sonarqube/api/ce/task?id=AWwBg8CZ3BDJdommho-t

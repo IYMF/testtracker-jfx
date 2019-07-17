@@ -4,11 +4,9 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -23,13 +21,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 public class Main extends Application {
 
     // Overall layout
-    BorderPane borderPane = new BorderPane();
-//    ContextMenu tableContextMenu;
-//    MenuItem vSphereMenuItem;
+    private BorderPane borderPane = new BorderPane();
 
     private static final Logger LOGGER = Logger.getLogger(DatabaseUtil.class.getName());
 
@@ -37,9 +34,7 @@ public class Main extends Application {
         launch(args);
     }
 
-    public void start(Stage primaryStage) throws Exception {
-
-
+    public void start(Stage primaryStage) {
 
         // Populate sections
         populateMenuBar();
@@ -55,6 +50,8 @@ public class Main extends Application {
     }
 
     private void populateMenuBar() {
+        HBox topMenuHBox = new HBox();
+
         // Menu items - top section
         MenuBar topMenuBar = new MenuBar();
 
@@ -82,19 +79,25 @@ public class Main extends Application {
         clearMenu.setOnAction(e -> borderPane.setCenter(null));
         viewMenu.getItems().addAll(clearMenu, refreshMenu);
 
-        topMenuBar.getMenus().addAll(new Menu[]{fileMenu, editMenu, viewMenu});
-        borderPane.setTop(topMenuBar);
+        // Refresh Icon
+        Button refreshBtn = new Button("Refresh");
+        refreshBtn.setOnAction(e -> populateCenterSection());
+
+        topMenuBar.getMenus().addAll(fileMenu, editMenu, viewMenu);
+        topMenuHBox.getChildren().addAll(topMenuBar, refreshBtn);
+        topMenuHBox.setHgrow(topMenuBar, Priority.ALWAYS);
+
+        borderPane.setTop(topMenuHBox);
     }
 
     private void populateLeftSection() {
         // left section
         VBox leftMenu = new VBox();
-        Button vSphereBtn = new Button("vSphere");
-        vSphereBtn.setOnAction(ev -> {
 
-//            VSphereUtil.openVSphereHere("151.155.216.27");
-        });
+        Button vSphereBtn = new Button("vSphere");
+        vSphereBtn.setOnAction(ev -> VSphereUtil.openVSphereHere("151.155.216.27"));
         vSphereBtn.setId("vSphereBtn");
+
         Button refreshBtn = new Button("Refresh");
         refreshBtn.setOnAction(ev -> {
             borderPane.setCenter(null);
@@ -102,7 +105,7 @@ public class Main extends Application {
         });
         Button cBtn = new Button("c");
         cBtn.setOnAction(ev -> borderPane.setCenter(null));
-        leftMenu.getChildren().addAll(new Node[]{vSphereBtn, refreshBtn, cBtn});
+        leftMenu.getChildren().addAll(vSphereBtn, refreshBtn, cBtn);
         borderPane.setLeft(leftMenu);
     }
 
@@ -131,11 +134,18 @@ public class Main extends Application {
 
         // Context menu for table rows
         ContextMenu tableContextMenu = new ContextMenu();
-        Image openVSphere = new Image("/images/vsphere-s.png");
+
+        Image openVSphere = new Image("/images/vsphereIcon.png");
         ImageView openVSphereView = new ImageView(openVSphere);
-        MenuItem vSphereMenuItem = new MenuItem("Open with vSphere");
+        MenuItem vSphereMenuItem = new MenuItem("Open vSphere");
         vSphereMenuItem.setGraphic(openVSphereView);
-        tableContextMenu.getItems().add(vSphereMenuItem);
+
+        Image openJmon = new Image("/images/favicon-area-chart.png");
+        ImageView openJmonView = new ImageView(openJmon);
+        MenuItem jmonMenuItem = new MenuItem("Open jmon");
+        jmonMenuItem.setGraphic(openJmonView);
+
+        tableContextMenu.getItems().addAll(jmonMenuItem, vSphereMenuItem);
 
         VBox sectionContent = new VBox();
 
@@ -205,22 +215,31 @@ public class Main extends Application {
                         esxIpColumn.setMaxWidth(45);
 
                         // Give the table the columns
-                        table.getColumns().addAll(new TableColumn[]{descriptionColumn, ipColumn, esxIpColumn});
+                        table.getColumns().addAll(descriptionColumn, ipColumn, esxIpColumn);
                         table.setItems(listOfTables.get(k).getRows());
                         table.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
                             @Override
                             public void handle(ContextMenuEvent event) {
                                 tableContextMenu.show(table, event.getScreenX(), event.getScreenY());
-                                vSphereMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-                                    @Override
-                                    public void handle(ActionEvent event) {
-                                        try {
-                                            VSphereUtil.openVSphereHere("151.155." + table.getSelectionModel().getSelectedItem().getEsxIp());
-                                        } catch (Exception e) {
-                                            LOGGER.log(Level.SEVERE, "Failed to open in vSphere: ", e);
-                                        }
+                                vSphereMenuItem.setOnAction(ev -> {
+                                    try {
+                                        VSphereUtil.openVSphereHere("151.155." + table.getSelectionModel().getSelectedItem().getEsxIp());
+                                    } catch (Exception e) {
+                                        LOGGER.log(Level.SEVERE, "Failed to open in vSphere: ", e);
                                     }
                                 });
+
+                                jmonMenuItem.setOnAction(ev ->
+                                    table.getItems().forEach(row -> {
+                                        if (Pattern.compile(Pattern.quote("jmon"), Pattern.CASE_INSENSITIVE).matcher(row.getDescription()).find()) {
+                                            try {
+                                                getHostServices().showDocument("http://151.155." + row.getIp());
+                                            } catch(Exception e) {
+                                                LOGGER.log(Level.SEVERE, "Error opening link in browser: ", e);
+                                            }
+                                        }
+                                    })
+                                );
                             }
                         });
 

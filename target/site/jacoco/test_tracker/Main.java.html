@@ -8,7 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -23,13 +22,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 <span class="fc" id="L27">public class Main extends Application {</span>
 
     // Overall layout
-<span class="fc" id="L30">    BorderPane borderPane = new BorderPane();</span>
-    ContextMenu tableContextMenu;
-    MenuItem vSphereMenuItem;
+<span class="fc" id="L30">    private BorderPane borderPane = new BorderPane();</span>
+//    ContextMenu tableContextMenu;
+//    MenuItem vSphereMenuItem;
 
 <span class="fc" id="L34">    private static final Logger LOGGER = Logger.getLogger(DatabaseUtil.class.getName());</span>
 
@@ -37,199 +37,241 @@ import java.util.logging.Logger;
 <span class="nc" id="L37">        launch(args);</span>
 <span class="nc" id="L38">    }</span>
 
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
 
-        // Menu items - top section
-<span class="fc" id="L43">        MenuBar topMenuBar = new MenuBar();</span>
 
-        // File menu
-<span class="fc" id="L46">        Menu fileMenu = new Menu(&quot;File&quot;);</span>
-<span class="fc" id="L47">        fileMenu.setId(&quot;fileMenu&quot;);</span>
-<span class="fc" id="L48">        MenuItem exitMenu = new MenuItem(&quot;Exit&quot;);</span>
-<span class="fc" id="L49">        exitMenu.setId(&quot;exitMenu&quot;);</span>
-<span class="fc" id="L50">        exitMenu.setOnAction(e -&gt; {</span>
-<span class="nc" id="L51">            boolean confirmExit = ConfirmBox.display(&quot;Exit Test Tracker&quot;, &quot;Are you sure you want to exit?&quot;);</span>
-<span class="nc bnc" id="L52" title="All 2 branches missed.">            if (confirmExit) {</span>
-<span class="nc" id="L53">                Platform.exit();</span>
-            }
-<span class="nc" id="L55">        });</span>
-<span class="fc" id="L56">        fileMenu.getItems().add(exitMenu);</span>
 
-        // Edit menu
-<span class="fc" id="L59">        Menu editMenu = new Menu(&quot;Edit&quot;);</span>
-
-        // View menu
-<span class="fc" id="L62">        Menu viewMenu = new Menu(&quot;View&quot;);</span>
-<span class="fc" id="L63">        MenuItem refreshMenu = new MenuItem(&quot;Refresh&quot;);</span>
-<span class="pc" id="L64">        refreshMenu.setOnAction(e -&gt; populateCenterSection());</span>
-<span class="fc" id="L65">        viewMenu.getItems().add(refreshMenu);</span>
-
-<span class="fc" id="L67">        topMenuBar.getMenus().addAll(new Menu[]{fileMenu, editMenu, viewMenu});</span>
-<span class="fc" id="L68">        borderPane.setTop(topMenuBar);</span>
-
-        // left section
-<span class="fc" id="L71">        VBox leftMenu = new VBox();</span>
-<span class="fc" id="L72">        Button vSphereBtn = new Button(&quot;vSphere&quot;);</span>
-<span class="fc" id="L73">        vSphereBtn.setOnAction(ev -&gt; {</span>
-
-//            VSphereUtil.openVSphereHere(&quot;151.155.216.27&quot;);
-<span class="nc" id="L76">        });</span>
-<span class="fc" id="L77">        vSphereBtn.setId(&quot;vSphereBtn&quot;);</span>
-<span class="fc" id="L78">        Button refreshBtn = new Button(&quot;Refresh&quot;);</span>
-<span class="fc" id="L79">        refreshBtn.setOnAction(ev -&gt; {</span>
-<span class="nc" id="L80">            borderPane.setCenter(null);</span>
-<span class="nc" id="L81">            populateCenterSection();</span>
-<span class="nc" id="L82">        });</span>
-<span class="fc" id="L83">        Button cBtn = new Button(&quot;c&quot;);</span>
-<span class="pc" id="L84">        cBtn.setOnAction(ev -&gt; borderPane.setCenter(null));</span>
-<span class="fc" id="L85">        leftMenu.getChildren().addAll(new Node[]{vSphereBtn, refreshBtn, cBtn});</span>
-//        borderPane.setLeft(leftMenu);
-
-<span class="fc" id="L88">        tableContextMenu = new ContextMenu();</span>
-
-<span class="fc" id="L90">        Image openVSphere = new Image(&quot;/images/vsphere-s.png&quot;);</span>
-<span class="fc" id="L91">        ImageView openVSphereView = new ImageView(openVSphere);</span>
-
-<span class="fc" id="L93">        vSphereMenuItem = new MenuItem(&quot;Open with vSphere&quot;);</span>
-<span class="fc" id="L94">        vSphereMenuItem.setGraphic(openVSphereView);</span>
-<span class="fc" id="L95">        tableContextMenu.getItems().add(vSphereMenuItem);</span>
-
-        // Center section
-<span class="fc" id="L98">        populateCenterSection();</span>
+        // Populate sections
+<span class="fc" id="L45">        populateMenuBar();</span>
+//        populateLeftSection();
+<span class="fc" id="L47">        populateCenterSection();</span>
 
         // Create scene and add to stage
-<span class="fc" id="L101">        Scene scene = new Scene(borderPane, 1200.0D, 800.0D);</span>
-<span class="fc" id="L102">        primaryStage.setTitle(&quot;Test Tracker&quot;);</span>
-<span class="fc" id="L103">        primaryStage.getIcons().add(new Image(&quot;/images/favicon-area-chart.png&quot;));</span>
-<span class="fc" id="L104">        primaryStage.setScene(scene);</span>
-<span class="fc" id="L105">        primaryStage.show();</span>
-<span class="fc" id="L106">    }</span>
+<span class="fc" id="L50">        Scene scene = new Scene(borderPane, 1200.0D, 800.0D);</span>
+<span class="fc" id="L51">        primaryStage.setTitle(&quot;Test Tracker&quot;);</span>
+<span class="fc" id="L52">        primaryStage.getIcons().add(new Image(&quot;/images/favicon-area-chart.png&quot;));</span>
+<span class="fc" id="L53">        primaryStage.setScene(scene);</span>
+<span class="fc" id="L54">        primaryStage.show();</span>
+<span class="fc" id="L55">    }</span>
+
+    private void populateMenuBar() {
+        // Menu items - top section
+<span class="fc" id="L59">        MenuBar topMenuBar = new MenuBar();</span>
+
+        // File menu
+<span class="fc" id="L62">        Menu fileMenu = new Menu(&quot;File&quot;);</span>
+<span class="fc" id="L63">        fileMenu.setId(&quot;fileMenu&quot;);</span>
+<span class="fc" id="L64">        MenuItem exitMenu = new MenuItem(&quot;Exit&quot;);</span>
+<span class="fc" id="L65">        exitMenu.setId(&quot;exitMenu&quot;);</span>
+<span class="fc" id="L66">        exitMenu.setOnAction(e -&gt; {</span>
+<span class="nc" id="L67">            boolean confirmExit = ConfirmBox.display(&quot;Exit Test Tracker&quot;, &quot;Are you sure you want to exit?&quot;);</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">            if (confirmExit) {</span>
+<span class="nc" id="L69">                Platform.exit();</span>
+            }
+<span class="nc" id="L71">        });</span>
+<span class="fc" id="L72">        fileMenu.getItems().add(exitMenu);</span>
+
+        // Edit menu
+<span class="fc" id="L75">        Menu editMenu = new Menu(&quot;Edit&quot;);</span>
+
+        // View menu
+<span class="fc" id="L78">        Menu viewMenu = new Menu(&quot;View&quot;);</span>
+<span class="fc" id="L79">        MenuItem refreshMenu = new MenuItem(&quot;Refresh&quot;);</span>
+<span class="pc" id="L80">        refreshMenu.setOnAction(e -&gt; populateCenterSection());</span>
+<span class="fc" id="L81">        MenuItem clearMenu = new MenuItem(&quot;Empty&quot;);</span>
+<span class="pc" id="L82">        clearMenu.setOnAction(e -&gt; borderPane.setCenter(null));</span>
+<span class="fc" id="L83">        viewMenu.getItems().addAll(clearMenu, refreshMenu);</span>
+
+<span class="fc" id="L85">        topMenuBar.getMenus().addAll(fileMenu, editMenu, viewMenu);</span>
+
+<span class="fc" id="L87">        borderPane.setTop(topMenuBar);</span>
+<span class="fc" id="L88">    }</span>
+
+    private void populateLeftSection() {
+        // left section
+<span class="nc" id="L92">        VBox leftMenu = new VBox();</span>
+<span class="nc" id="L93">        Button vSphereBtn = new Button(&quot;vSphere&quot;);</span>
+<span class="nc" id="L94">        vSphereBtn.setOnAction(ev -&gt; {</span>
+
+//            VSphereUtil.openVSphereHere(&quot;151.155.216.27&quot;);
+<span class="nc" id="L97">        });</span>
+<span class="nc" id="L98">        vSphereBtn.setId(&quot;vSphereBtn&quot;);</span>
+<span class="nc" id="L99">        Button refreshBtn = new Button(&quot;Refresh&quot;);</span>
+<span class="nc" id="L100">        refreshBtn.setOnAction(ev -&gt; {</span>
+<span class="nc" id="L101">            borderPane.setCenter(null);</span>
+<span class="nc" id="L102">            populateCenterSection();</span>
+<span class="nc" id="L103">        });</span>
+<span class="nc" id="L104">        Button cBtn = new Button(&quot;c&quot;);</span>
+<span class="nc" id="L105">        cBtn.setOnAction(ev -&gt; borderPane.setCenter(null));</span>
+<span class="nc" id="L106">        leftMenu.getChildren().addAll(vSphereBtn, refreshBtn, cBtn);</span>
+<span class="nc" id="L107">        borderPane.setLeft(leftMenu);</span>
+<span class="nc" id="L108">    }</span>
 
     // Populates the center section of BorderPane with tables retrieved from the database
     private void populateCenterSection() {
-<span class="fc" id="L110">        ObservableList&lt;Table&gt; listOfTables = FXCollections.observableArrayList();</span>
+<span class="fc" id="L112">        ObservableList&lt;Table&gt; listOfTables = FXCollections.observableArrayList();</span>
 
-        // Create tables
-<span class="fc" id="L113">        ResultSet tables = DatabaseUtil.getTests();</span>
+        // Create table objects
+<span class="fc" id="L115">        ResultSet tables = DatabaseUtil.getTests();</span>
         try {
-<span class="fc bfc" id="L115" title="All 2 branches covered.">            while (tables.next()) {</span>
-<span class="fc" id="L116">                listOfTables.add(new Table(</span>
-<span class="fc" id="L117">                        tables.getString(&quot;testName&quot;),</span>
-<span class="fc" id="L118">                        tables.getInt(&quot;section&quot;),</span>
-<span class="fc" id="L119">                        tables.getInt(&quot;product&quot;),</span>
-<span class="fc" id="L120">                        tables.getInt(&quot;id&quot;)</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">            while (tables.next()) {</span>
+<span class="fc" id="L118">                listOfTables.add(new Table(</span>
+<span class="fc" id="L119">                        tables.getString(&quot;testName&quot;),</span>
+<span class="fc" id="L120">                        tables.getInt(&quot;section&quot;),</span>
+<span class="fc" id="L121">                        tables.getInt(&quot;product&quot;),</span>
+<span class="fc" id="L122">                        tables.getInt(&quot;id&quot;)</span>
                 ));
             }
-<span class="nc" id="L123">        } catch (SQLException e) {</span>
-<span class="nc" id="L124">            LOGGER.log(Level.SEVERE, &quot;&quot;, e);</span>
-<span class="fc" id="L125">        }</span>
+<span class="nc" id="L125">        } catch (SQLException e) {</span>
+<span class="nc" id="L126">            LOGGER.log(Level.SEVERE, &quot;&quot;, e);</span>
+<span class="fc" id="L127">        }</span>
 
         // Center section
-<span class="fc" id="L128">        ObservableList&lt;String&gt; sections = DatabaseUtil.getSections();</span>
-<span class="fc" id="L129">        ObservableList&lt;String&gt; products = DatabaseUtil.getProducts();</span>
+<span class="fc" id="L130">        ObservableList&lt;String&gt; sections = DatabaseUtil.getSections();</span>
+<span class="fc" id="L131">        ObservableList&lt;String&gt; products = DatabaseUtil.getProducts();</span>
 
-<span class="fc" id="L131">        VBox sectionContent = new VBox();</span>
-<span class="fc bfc" id="L132" title="All 2 branches covered.">        for (int i = 0; i &lt; sections.size(); i++) {</span>
+        // Context menu for table rows
+<span class="fc" id="L134">        ContextMenu tableContextMenu = new ContextMenu();</span>
 
-            // Create section areas
-<span class="fc" id="L135">            HBox sectionHbox = new HBox();</span>
-<span class="fc" id="L136">            sectionHbox.setAlignment(Pos.CENTER);</span>
-<span class="fc" id="L137">            sectionHbox.setStyle(&quot;-fx-background-color: #323435;-fx-text-fill: aliceblue; -fx-font-size: 16px; -fx-label-padding: 0; -fx-padding: 0;&quot;);</span>
-<span class="fc" id="L138">            sectionHbox.setPadding(new Insets(5.0D, 0.0D, 5.0D, 0.0D));</span>
+<span class="fc" id="L136">        Image openVSphere = new Image(&quot;/images/vsphere-s.png&quot;);</span>
+<span class="fc" id="L137">        ImageView openVSphereView = new ImageView(openVSphere);</span>
+<span class="fc" id="L138">        MenuItem vSphereMenuItem = new MenuItem(&quot;Open vSphere&quot;);</span>
+<span class="fc" id="L139">        vSphereMenuItem.setGraphic(openVSphereView);</span>
 
-<span class="fc" id="L140">            Label sectionHeader = new Label(sections.get(i));</span>
-<span class="fc" id="L141">            sectionHbox.setPadding(new Insets(0));</span>
-<span class="fc" id="L142">            sectionHeader.setStyle(&quot;-fx-text-fill: aliceblue; -fx-font-weight: 700&quot;);</span>
-<span class="fc" id="L143">            sectionHbox.getChildren().add(sectionHeader);</span>
+<span class="fc" id="L141">        Image openJmon = new Image(&quot;/images/favicon-area-chart.png&quot;);</span>
+<span class="fc" id="L142">        ImageView openJmonView = new ImageView(openJmon);</span>
+<span class="fc" id="L143">        MenuItem jmonMenuItem = new MenuItem(&quot;Open jmon&quot;);</span>
+<span class="fc" id="L144">        jmonMenuItem.setGraphic(openJmonView);</span>
 
-<span class="fc" id="L145">            sectionContent.getChildren().add(sectionHbox);</span>
+<span class="fc" id="L146">        tableContextMenu.getItems().addAll(jmonMenuItem, vSphereMenuItem);</span>
 
-<span class="fc" id="L147">            FlowPane productSection = new FlowPane();</span>
-<span class="fc" id="L148">            productSection.setPadding(new Insets(5, 5, 5, 5));</span>
+<span class="fc" id="L148">        VBox sectionContent = new VBox();</span>
 
-<span class="fc bfc" id="L150" title="All 2 branches covered.">            for (int j = 0; j &lt; products.size(); j++) {</span>
+        // Create section areas
+<span class="fc bfc" id="L151" title="All 2 branches covered.">        for (int i = 0; i &lt; sections.size(); i++) {</span>
+<span class="fc" id="L152">            HBox sectionHbox = new HBox();</span>
+<span class="fc" id="L153">            sectionHbox.setAlignment(Pos.CENTER);</span>
+<span class="fc" id="L154">            sectionHbox.setStyle(&quot;-fx-background-color: #323435;-fx-text-fill: aliceblue; -fx-font-size: 16px; -fx-label-padding: 0; -fx-padding: 0;&quot;);</span>
+<span class="fc" id="L155">            sectionHbox.setPadding(new Insets(5.0D, 0.0D, 5.0D, 0.0D));</span>
 
-                // Create a column for each product
-<span class="fc" id="L153">                VBox productColumn = new VBox();</span>
-<span class="fc" id="L154">                productColumn.setPadding(new Insets(0, 5, 0, 5));</span>
-<span class="fc" id="L155">                productColumn.setAlignment(Pos.TOP_CENTER);</span>
+<span class="fc" id="L157">            Label sectionHeader = new Label(sections.get(i));</span>
+<span class="fc" id="L158">            sectionHbox.setPadding(new Insets(0));</span>
+<span class="fc" id="L159">            sectionHeader.setStyle(&quot;-fx-text-fill: aliceblue; -fx-font-weight: 700&quot;);</span>
+<span class="fc" id="L160">            sectionHbox.getChildren().add(sectionHeader);</span>
 
-<span class="fc" id="L157">                Label colHeader = new Label(products.get(j));</span>
-<span class="fc" id="L158">                colHeader.setTextAlignment(TextAlignment.CENTER);</span>
-<span class="fc" id="L159">                colHeader.setMinWidth(productColumn.getWidth());</span>
-<span class="fc" id="L160">                colHeader.setStyle(&quot;-fx-font-size: 14px&quot;);</span>
+<span class="fc" id="L162">            sectionContent.getChildren().add(sectionHbox);</span>
 
-<span class="fc" id="L162">                productColumn.getChildren().add(colHeader);</span>
+<span class="fc" id="L164">            FlowPane productSection = new FlowPane();</span>
+<span class="fc" id="L165">            productSection.setPadding(new Insets(5, 5, 5, 5));</span>
 
-<span class="fc bfc" id="L164" title="All 2 branches covered.">                for (int k = 0; k &lt; listOfTables.size(); k++) {</span>
-<span class="fc bfc" id="L165" title="All 4 branches covered.">                    if (listOfTables.get(k).getSectionID() == i + 1 &amp;&amp; listOfTables.get(k).getProductID() == j + 1) {</span>
-//                        LOGGER.log(Level.INFO, &quot;Section: &quot; + listOfTables.get(k).getSectionID() + &quot; - Product: &quot; + listOfTables.get(k).getProductID() + &quot; - TestID: &quot; + listOfTables.get(k).getTestID());
+            // Create a column for each product
+<span class="fc bfc" id="L168" title="All 2 branches covered.">            for (int j = 0; j &lt; products.size(); j++) {</span>
+<span class="fc" id="L169">                VBox productColumn = new VBox();</span>
+<span class="fc" id="L170">                productColumn.setPadding(new Insets(0, 5, 0, 5));</span>
+<span class="fc" id="L171">                productColumn.setAlignment(Pos.TOP_CENTER);</span>
 
-<span class="fc" id="L168">                        Region spacer = new Region();</span>
-<span class="fc" id="L169">                        spacer.setPrefHeight(10);</span>
+<span class="fc" id="L173">                Label colHeader = new Label(products.get(j));</span>
+<span class="fc" id="L174">                colHeader.setTextAlignment(TextAlignment.CENTER);</span>
+<span class="fc" id="L175">                colHeader.setMinWidth(productColumn.getWidth());</span>
+<span class="fc" id="L176">                colHeader.setStyle(&quot;-fx-font-size: 14px&quot;);</span>
+
+<span class="fc" id="L178">                productColumn.getChildren().add(colHeader);</span>
+
+                // Create all tables for each product
+<span class="fc bfc" id="L181" title="All 2 branches covered.">                for (int k = 0; k &lt; listOfTables.size(); k++) {</span>
+<span class="fc bfc" id="L182" title="All 4 branches covered.">                    if (listOfTables.get(k).getSectionID() == i + 1 &amp;&amp; listOfTables.get(k).getProductID() == j + 1) {</span>
+
+<span class="fc" id="L184">                        Region spacer = new Region();</span>
+<span class="fc" id="L185">                        spacer.setPrefHeight(10);</span>
 
                         // Label for each table
-<span class="fc" id="L172">                        Label testName = new Label(listOfTables.get(k).getTableTitle());</span>
-<span class="fc" id="L173">                        testName.setMaxWidth(Double.MAX_VALUE);</span>
-<span class="fc" id="L174">                        testName.setAlignment(Pos.CENTER);</span>
-<span class="fc" id="L175">                        testName.setStyle(&quot;-fx-background-color: #0073e7; -fx-text-fill: aliceblue; -fx-font-weight: 800;&quot;);</span>
-<span class="fc" id="L176">                        testName.opaqueInsetsProperty().setValue(new Insets(10, 0, 0, 0));</span>
+<span class="fc" id="L188">                        Label testName = new Label(listOfTables.get(k).getTableTitle());</span>
+<span class="fc" id="L189">                        testName.setMaxWidth(Double.MAX_VALUE);</span>
+<span class="fc" id="L190">                        testName.setAlignment(Pos.CENTER);</span>
+<span class="fc" id="L191">                        testName.setStyle(&quot;-fx-background-color: #0073e7; -fx-text-fill: aliceblue; -fx-font-weight: 800;&quot;);</span>
+<span class="fc" id="L192">                        testName.opaqueInsetsProperty().setValue(new Insets(10, 0, 0, 0));</span>
 
                         // Create a new table
-<span class="fc" id="L179">                        TableView&lt;Row&gt; table = new TableView();</span>
-<span class="fc" id="L180">                        table.setFixedCellSize(20);</span>
-<span class="fc" id="L181">                        table.setStyle(&quot;-fx-font-size: 11;&quot;);</span>
-<span class="fc" id="L182">                        table.setMaxHeight(table.getFixedCellSize() * (listOfTables.get(k).getRows().size() + 1.20));</span>
-<span class="fc" id="L183">                        table.setEditable(true);</span>
-<span class="fc" id="L184">                        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);</span>
+<span class="fc" id="L195">                        TableView&lt;Row&gt; table = new TableView();</span>
+<span class="fc" id="L196">                        table.setFixedCellSize(20);</span>
+<span class="fc" id="L197">                        table.setStyle(&quot;-fx-font-size: 11;&quot;);</span>
+<span class="fc" id="L198">                        table.setMaxHeight(table.getFixedCellSize() * (listOfTables.get(k).getRows().size() + 1.20));</span>
+<span class="fc" id="L199">                        table.setEditable(true);</span>
+<span class="fc" id="L200">                        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);</span>
 
                         // Create columns and set values
-<span class="fc" id="L187">                        TableColumn&lt;Row, String&gt; descriptionColumn = new TableColumn(&quot;Description&quot;);</span>
-<span class="fc" id="L188">                        descriptionColumn.setCellValueFactory(new PropertyValueFactory(&quot;description&quot;));</span>
-<span class="fc" id="L189">                        descriptionColumn.setMaxWidth(95);</span>
+<span class="fc" id="L203">                        TableColumn&lt;Row, String&gt; descriptionColumn = new TableColumn(&quot;Description&quot;);</span>
+<span class="fc" id="L204">                        descriptionColumn.setCellValueFactory(new PropertyValueFactory(&quot;description&quot;));</span>
+<span class="fc" id="L205">                        descriptionColumn.setMaxWidth(95);</span>
 
-<span class="fc" id="L191">                        TableColumn&lt;Row, String&gt; ipColumn = new TableColumn(&quot;IP&quot;);</span>
-<span class="fc" id="L192">                        ipColumn.setCellValueFactory(new PropertyValueFactory(&quot;ip&quot;));</span>
-<span class="fc" id="L193">                        ipColumn.setMaxWidth(45);</span>
+<span class="fc" id="L207">                        TableColumn&lt;Row, String&gt; ipColumn = new TableColumn(&quot;IP&quot;);</span>
+<span class="fc" id="L208">                        ipColumn.setCellValueFactory(new PropertyValueFactory(&quot;ip&quot;));</span>
+<span class="fc" id="L209">                        ipColumn.setMaxWidth(45);</span>
 
-<span class="fc" id="L195">                        TableColumn&lt;Row, String&gt; esxIpColumn = new TableColumn(&quot;ESX IP&quot;);</span>
-<span class="fc" id="L196">                        esxIpColumn.setCellValueFactory(new PropertyValueFactory(&quot;esxIp&quot;));</span>
-<span class="fc" id="L197">                        esxIpColumn.setMaxWidth(45);</span>
+<span class="fc" id="L211">                        TableColumn&lt;Row, String&gt; esxIpColumn = new TableColumn(&quot;ESX IP&quot;);</span>
+<span class="fc" id="L212">                        esxIpColumn.setCellValueFactory(new PropertyValueFactory(&quot;esxIp&quot;));</span>
+<span class="fc" id="L213">                        esxIpColumn.setMaxWidth(45);</span>
 
                         // Give the table the columns
-<span class="fc" id="L200">                        table.getColumns().addAll(new TableColumn[]{descriptionColumn, ipColumn, esxIpColumn});</span>
-<span class="fc" id="L201">                        table.setItems(listOfTables.get(k).getRows());</span>
-<span class="fc" id="L202">                        table.setOnContextMenuRequested(new EventHandler&lt;ContextMenuEvent&gt;() {</span>
+<span class="fc" id="L216">                        table.getColumns().addAll(descriptionColumn, ipColumn, esxIpColumn);</span>
+<span class="fc" id="L217">                        table.setItems(listOfTables.get(k).getRows());</span>
+<span class="fc" id="L218">                        table.setOnContextMenuRequested(new EventHandler&lt;ContextMenuEvent&gt;() {</span>
                             @Override
                             public void handle(ContextMenuEvent event) {
-<span class="nc" id="L205">                                tableContextMenu.show(table, event.getScreenX(), event.getScreenY());</span>
-<span class="nc" id="L206">                                vSphereMenuItem.setOnAction(new EventHandler&lt;ActionEvent&gt;() {</span>
-                                    @Override
-                                    public void handle(ActionEvent event) {
-                                        try {
-<span class="nc" id="L210">                                            VSphereUtil.openVSphereHere(&quot;151.155.&quot; + table.getSelectionModel().getSelectedItem().getEsxIp());</span>
-<span class="nc" id="L211">                                        } catch (Exception e) {</span>
-<span class="nc" id="L212">                                            LOGGER.log(Level.SEVERE, &quot;Failed to open in vSphere: &quot;, e);</span>
-<span class="nc" id="L213">                                        }</span>
-<span class="nc" id="L214">                                    }</span>
-                                });
-<span class="nc" id="L216">                            }</span>
+<span class="nc" id="L221">                                tableContextMenu.show(table, event.getScreenX(), event.getScreenY());</span>
+<span class="nc" id="L222">                                vSphereMenuItem.setOnAction(ev -&gt; {</span>
+                                    try {
+<span class="nc" id="L224">                                        VSphereUtil.openVSphereHere(&quot;151.155.&quot; + table.getSelectionModel().getSelectedItem().getEsxIp());</span>
+<span class="nc" id="L225">                                    } catch (Exception e) {</span>
+<span class="nc" id="L226">                                        LOGGER.log(Level.SEVERE, &quot;Failed to open in vSphere: &quot;, e);</span>
+<span class="nc" id="L227">                                    }</span>
+<span class="nc" id="L228">                                });</span>
+
+<span class="nc" id="L230">                                jmonMenuItem.setOnAction(ev -&gt;</span>
+<span class="nc" id="L231">                                    table.getItems().forEach(row -&gt; {</span>
+<span class="nc bnc" id="L232" title="All 2 branches missed.">                                        if (Pattern.compile(Pattern.quote(&quot;jmon&quot;), Pattern.CASE_INSENSITIVE).matcher(row.getDescription()).find()) {</span>
+                                            try {
+<span class="nc" id="L234">                                                getHostServices().showDocument(&quot;http://151.155.&quot; + row.getIp());</span>
+<span class="nc" id="L235">                                            } catch(Exception e) {</span>
+<span class="nc" id="L236">                                                LOGGER.log(Level.SEVERE, &quot;Error opening link in browser: &quot;, e);</span>
+<span class="nc" id="L237">                                            }</span>
+                                        }
+<span class="nc" id="L239">                                    })</span>
+                                );
+
+//                                if (!table.getSelectionModel().getSelectedItem().getDescription().contains(&quot;jmon&quot;)) {
+//                                    jmonMenuItem.setOnAction(ev -&gt; {
+//                                        try {
+//                                            jmonMenuItem.setVisible(false);
+//                                            getHostServices().showDocument(&quot;http://151.155.&quot; + table.getSelectionModel().getSelectedItem().getIp());
+//                                        } catch(Exception e) {
+//                                            LOGGER.log(Level.SEVERE, &quot;Error opening link in browser: &quot;, e);
+//                                        }
+//                                    });
+//                                }
+<span class="nc" id="L252">                            }</span>
                         });
 
                         // Add table to column
-<span class="fc" id="L220">                        productColumn.getChildren().addAll(spacer, testName, table);</span>
+<span class="fc" id="L256">                        productColumn.getChildren().addAll(spacer, testName, table);</span>
 
-<span class="fc" id="L222">                        table.setMaxWidth(descriptionColumn.getMaxWidth() + ipColumn.getMaxWidth() + esxIpColumn.getMaxWidth());</span>
+<span class="fc" id="L258">                        table.setMaxWidth(descriptionColumn.getMaxWidth() + ipColumn.getMaxWidth() + esxIpColumn.getMaxWidth());</span>
                     }
                 }
-<span class="fc" id="L225">                productSection.getChildren().add(productColumn);</span>
+<span class="fc" id="L261">                productSection.getChildren().add(productColumn);</span>
             }
-<span class="fc" id="L227">            sectionContent.getChildren().add(productSection);</span>
+<span class="fc" id="L263">            sectionContent.getChildren().add(productSection);</span>
         }
 
-<span class="fc" id="L230">        sectionContent.setStyle(&quot;-fx-background-color: aliceblue&quot;);</span>
-<span class="fc" id="L231">        borderPane.setCenter(sectionContent);</span>
-<span class="fc" id="L232">    }</span>
+<span class="fc" id="L266">        sectionContent.setStyle(&quot;-fx-background-color: aliceblue&quot;);</span>
+
+<span class="fc" id="L268">        ScrollPane centerSection = new ScrollPane();</span>
+<span class="fc" id="L269">        centerSection.setFitToWidth(true);</span>
+<span class="fc" id="L270">        centerSection.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);</span>
+<span class="fc" id="L271">        centerSection.setContent(sectionContent);</span>
+
+<span class="fc" id="L273">        borderPane.setCenter(centerSection);</span>
+<span class="fc" id="L274">    }</span>
 }
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

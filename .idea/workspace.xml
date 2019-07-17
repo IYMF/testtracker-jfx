@@ -7,9 +7,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="86e30065-ce02-4463-a86a-9f9d0834c744" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/test_tracker/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/test_tracker/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/test_tracker/VSphereUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/test_tracker/VSphereUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/vsphere-s.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/vsphereIcon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/vsphere-small.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/vsphere.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/images/vsphere-s.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/images/vsphere-small.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/images/vsphere.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/test_tracker/Main$1$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/test_tracker/Main$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/test_tracker/Main$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/test_tracker/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/test_tracker/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/jacoco.exec" beforeDir="false" afterPath="$PROJECT_DIR$/target/jacoco.exec" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-sessions.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-sessions.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/test_tracker/Main$1$1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/test_tracker/Main$1.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/test_tracker/Main$1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/test_tracker/Main.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/test_tracker/Main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/test_tracker/Main.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/test_tracker/Main.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/test_tracker/Table.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/test_tracker/Table.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/test_tracker/Table.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/test_tracker/Table.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/test_tracker/VSphereUtil.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/test_tracker/VSphereUtil.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/test_tracker/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/test_tracker/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/test_tracker/index.source.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/test_tracker/index.source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/sonar/report-task.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/sonar/report-task.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-test_tracker.ConfirmBoxTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-test_tracker.ConfirmBoxTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-test_tracker.MainTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-test_tracker.MainTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/test_tracker.ConfirmBoxTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/test_tracker.ConfirmBoxTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/test_tracker.MainTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/test_tracker.MainTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/testtracker-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/testtracker-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/testtracker-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/testtracker-1.0-SNAPSHOT.jar" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,8 +62,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/test_tracker/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="183" column="90" lean-forward="true" selection-start-line="183" selection-start-column="90" selection-end-line="183" selection-end-column="90" />
+            <state relative-caret-position="367">
+              <caret line="83" column="61" selection-start-line="83" selection-start-column="61" selection-end-line="83" selection-end-column="61" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -44,8 +74,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/test_tracker/VSphereUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="39" lean-forward="true" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
+            <state relative-caret-position="300">
+              <caret line="20" column="72" selection-start-line="20" selection-start-column="72" selection-end-line="20" selection-end-column="72" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -57,7 +87,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/test_tracker/DatabaseUtil.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1530">
-              <caret line="108" column="5" lean-forward="true" selection-start-line="108" selection-start-column="5" selection-end-line="108" selection-end-column="5" />
+              <caret line="108" column="5" selection-start-line="108" selection-start-column="5" selection-end-line="108" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -69,7 +99,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/test_tracker/Row.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="450">
-              <caret line="42" selection-start-line="42" selection-start-column="2" selection-end-line="44" selection-end-column="7" />
+              <caret line="42" selection-start-line="42" selection-end-line="44" selection-end-column="7" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -80,8 +110,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/test_tracker/Table.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="41" selection-start-line="2" selection-start-column="41" selection-end-line="2" selection-end-column="41" />
+            <state relative-caret-position="15">
+              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
               <folding>
                 <element signature="e#537#538#0" expanded="true" />
                 <element signature="e#570#571#0" expanded="true" />
@@ -114,6 +144,7 @@
       <find>table</find>
       <find>sonar</find>
       <find>center</find>
+      <find>vsphere</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -133,12 +164,12 @@
         <option value="$PROJECT_DIR$/src/main/java/test_tracker/NewMain.java" />
         <option value="$PROJECT_DIR$/src/main/java/test_tracker/Database.java" />
         <option value="$PROJECT_DIR$/src/main/java/test_tracker/ConfirmBox.java" />
-        <option value="$PROJECT_DIR$/src/main/java/test_tracker/Row.java" />
         <option value="$PROJECT_DIR$/src/test/java/test_tracker/MainTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/test_tracker/Table.java" />
         <option value="$PROJECT_DIR$/src/main/java/test_tracker/DatabaseUtil.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/test_tracker/VSphereUtil.java" />
+        <option value="$PROJECT_DIR$/src/main/java/test_tracker/Row.java" />
+        <option value="$PROJECT_DIR$/src/main/java/test_tracker/Table.java" />
         <option value="$PROJECT_DIR$/src/main/java/test_tracker/Main.java" />
       </list>
     </option>
@@ -206,6 +237,42 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="test_tracker" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="testtracker-maven" type="b2602c69:ProjectViewProjectNode" />
+              <item name="testtracker-maven" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="testtracker-maven" type="b2602c69:ProjectViewProjectNode" />
+              <item name="testtracker-maven" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="images" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="testtracker-maven" type="b2602c69:ProjectViewProjectNode" />
+              <item name="testtracker-maven" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="testtracker-maven" type="b2602c69:ProjectViewProjectNode" />
+              <item name="testtracker-maven" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="testtracker-maven" type="b2602c69:ProjectViewProjectNode" />
+              <item name="testtracker-maven" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="test_tracker" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -221,7 +288,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1563382711624" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1563397977172" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -354,8 +421,16 @@
       <updated>1562015305797</updated>
       <workItem from="1562015309307" duration="21855000" />
       <workItem from="1562098702833" duration="850000" />
-      <workItem from="1562099590983" duration="99463000" />
+      <workItem from="1562099590983" duration="109333000" />
     </task>
+    <task id="LOCAL-00001" summary="Added a ScrollPane layout">
+      <created>1563382739331</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1563382739331</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -391,7 +466,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="122168000" />
+    <option name="totallyTimeSpent" value="132038000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -422,7 +497,7 @@
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" weight="0.32936078" />
       <window_info anchor="bottom" id="Terminal" order="6" sideWeight="0.49946696" weight="0.25460455" />
-      <window_info active="true" anchor="bottom" id="Run" order="7" sideWeight="0.49946696" visible="true" weight="0.283857" />
+      <window_info active="true" anchor="bottom" id="Run" order="7" sideWeight="0.49946696" visible="true" weight="0.22318527" />
       <window_info anchor="bottom" id="Debug" order="8" weight="0.39978564" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.33226153" />
@@ -475,6 +550,10 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added a ScrollPane layout" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added a ScrollPane layout" />
+  </component>
   <component name="editorHistoryManager">
     <entry file="uml://MODULES/mdl-testtracker-maven">
       <provider selected="true" editor-type-id="UmlEditorProvider">
@@ -517,52 +596,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/test_tracker/ConfirmBoxTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/test_tracker/MainTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" column="58" selection-start-line="33" selection-start-column="58" selection-end-line="33" selection-end-column="58" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/test_tracker/Row.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="42" selection-start-line="42" selection-start-column="2" selection-end-line="44" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/test_tracker/Table.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="41" selection-start-line="2" selection-start-column="41" selection-end-line="2" selection-end-column="41" />
-          <folding>
-            <element signature="e#537#538#0" expanded="true" />
-            <element signature="e#570#571#0" expanded="true" />
-            <element signature="e#726#727#0" expanded="true" />
-            <element signature="e#753#754#0" expanded="true" />
-            <element signature="e#802#803#0" expanded="true" />
-            <element signature="e#834#835#0" expanded="true" />
-            <element signature="e#867#868#0" expanded="true" />
-            <element signature="e#899#900#0" expanded="true" />
-            <element signature="e#929#930#0" expanded="true" />
-            <element signature="e#958#959#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/images/openVSphere.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -578,16 +611,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/test_tracker/VSphereUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="39" lean-forward="true" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files (x86)/Java/jdk1.8.0_211/javafx-src.zip!/javafx/event/EventHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -598,17 +621,73 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/test_tracker/DatabaseUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1530">
-          <caret line="108" column="5" lean-forward="true" selection-start-line="108" selection-start-column="5" selection-end-line="108" selection-end-column="5" />
+          <caret line="108" column="5" selection-start-line="108" selection-start-column="5" selection-end-line="108" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/test_tracker/ConfirmBoxTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/test_tracker/MainTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="33" column="58" selection-start-line="33" selection-start-column="58" selection-end-line="33" selection-end-column="58" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/test_tracker/VSphereUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="72" selection-start-line="20" selection-start-column="72" selection-end-line="20" selection-end-column="72" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/test_tracker/Row.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="42" selection-start-line="42" selection-end-line="44" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/test_tracker/Table.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+          <folding>
+            <element signature="e#537#538#0" expanded="true" />
+            <element signature="e#570#571#0" expanded="true" />
+            <element signature="e#726#727#0" expanded="true" />
+            <element signature="e#753#754#0" expanded="true" />
+            <element signature="e#802#803#0" expanded="true" />
+            <element signature="e#834#835#0" expanded="true" />
+            <element signature="e#867#868#0" expanded="true" />
+            <element signature="e#899#900#0" expanded="true" />
+            <element signature="e#929#930#0" expanded="true" />
+            <element signature="e#958#959#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/test_tracker/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="183" column="90" lean-forward="true" selection-start-line="183" selection-start-column="90" selection-end-line="183" selection-end-column="90" />
+        <state relative-caret-position="367">
+          <caret line="83" column="61" selection-start-line="83" selection-start-column="61" selection-end-line="83" selection-end-column="61" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
