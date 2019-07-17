@@ -86,7 +86,7 @@ public class Main extends Application {
         topMenuBar.getMenus().addAll(fileMenu, editMenu, viewMenu);
         topMenuHBox.getChildren().addAll(topMenuBar, refreshBtn);
         topMenuHBox.setHgrow(topMenuBar, Priority.ALWAYS);
-
+//asdfasdf
         borderPane.setTop(topMenuHBox);
     }
 
