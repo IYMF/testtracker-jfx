@@ -28,8 +28,8 @@ public class Main extends Application {
 
     // Overall layout
     BorderPane borderPane = new BorderPane();
-    ContextMenu tableContextMenu;
-    MenuItem vSphereMenuItem;
+//    ContextMenu tableContextMenu;
+//    MenuItem vSphereMenuItem;
 
     private static final Logger LOGGER = Logger.getLogger(DatabaseUtil.class.getName());
 
@@ -39,6 +39,22 @@ public class Main extends Application {
 
     public void start(Stage primaryStage) throws Exception {
 
+
+
+        // Populate sections
+        populateMenuBar();
+//        populateLeftSection();
+        populateCenterSection();
+
+        // Create scene and add to stage
+        Scene scene = new Scene(borderPane, 1200.0D, 800.0D);
+        primaryStage.setTitle("Test Tracker");
+        primaryStage.getIcons().add(new Image("/images/favicon-area-chart.png"));
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    private void populateMenuBar() {
         // Menu items - top section
         MenuBar topMenuBar = new MenuBar();
 
@@ -62,11 +78,15 @@ public class Main extends Application {
         Menu viewMenu = new Menu("View");
         MenuItem refreshMenu = new MenuItem("Refresh");
         refreshMenu.setOnAction(e -> populateCenterSection());
-        viewMenu.getItems().add(refreshMenu);
+        MenuItem clearMenu = new MenuItem("Empty");
+        clearMenu.setOnAction(e -> borderPane.setCenter(null));
+        viewMenu.getItems().addAll(clearMenu, refreshMenu);
 
         topMenuBar.getMenus().addAll(new Menu[]{fileMenu, editMenu, viewMenu});
         borderPane.setTop(topMenuBar);
+    }
 
+    private void populateLeftSection() {
         // left section
         VBox leftMenu = new VBox();
         Button vSphereBtn = new Button("vSphere");
@@ -83,33 +103,14 @@ public class Main extends Application {
         Button cBtn = new Button("c");
         cBtn.setOnAction(ev -> borderPane.setCenter(null));
         leftMenu.getChildren().addAll(new Node[]{vSphereBtn, refreshBtn, cBtn});
-//        borderPane.setLeft(leftMenu);
-
-        tableContextMenu = new ContextMenu();
-
-        Image openVSphere = new Image("/images/vsphere-s.png");
-        ImageView openVSphereView = new ImageView(openVSphere);
-
-        vSphereMenuItem = new MenuItem("Open with vSphere");
-        vSphereMenuItem.setGraphic(openVSphereView);
-        tableContextMenu.getItems().add(vSphereMenuItem);
-
-        // Center section
-        populateCenterSection();
-
-        // Create scene and add to stage
-        Scene scene = new Scene(borderPane, 1200.0D, 800.0D);
-        primaryStage.setTitle("Test Tracker");
-        primaryStage.getIcons().add(new Image("/images/favicon-area-chart.png"));
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        borderPane.setLeft(leftMenu);
     }
 
     // Populates the center section of BorderPane with tables retrieved from the database
     private void populateCenterSection() {
         ObservableList<Table> listOfTables = FXCollections.observableArrayList();
 
-        // Create tables
+        // Create table objects
         ResultSet tables = DatabaseUtil.getTests();
         try {
             while (tables.next()) {
@@ -128,10 +129,18 @@ public class Main extends Application {
         ObservableList<String> sections = DatabaseUtil.getSections();
         ObservableList<String> products = DatabaseUtil.getProducts();
 
-        VBox sectionContent = new VBox();
-        for (int i = 0; i < sections.size(); i++) {
+        // Context menu for table rows
+        ContextMenu tableContextMenu = new ContextMenu();
+        Image openVSphere = new Image("/images/vsphere-s.png");
+        ImageView openVSphereView = new ImageView(openVSphere);
+        MenuItem vSphereMenuItem = new MenuItem("Open with vSphere");
+        vSphereMenuItem.setGraphic(openVSphereView);
+        tableContextMenu.getItems().add(vSphereMenuItem);
 
-            // Create section areas
+        VBox sectionContent = new VBox();
+
+        // Create section areas
+        for (int i = 0; i < sections.size(); i++) {
             HBox sectionHbox = new HBox();
             sectionHbox.setAlignment(Pos.CENTER);
             sectionHbox.setStyle("-fx-background-color: #323435;-fx-text-fill: aliceblue; -fx-font-size: 16px; -fx-label-padding: 0; -fx-padding: 0;");
@@ -147,9 +156,8 @@ public class Main extends Application {
             FlowPane productSection = new FlowPane();
             productSection.setPadding(new Insets(5, 5, 5, 5));
 
+            // Create a column for each product
             for (int j = 0; j < products.size(); j++) {
-
-                // Create a column for each product
                 VBox productColumn = new VBox();
                 productColumn.setPadding(new Insets(0, 5, 0, 5));
                 productColumn.setAlignment(Pos.TOP_CENTER);
@@ -161,9 +169,9 @@ public class Main extends Application {
 
                 productColumn.getChildren().add(colHeader);
 
+                // Create all tables for each product
                 for (int k = 0; k < listOfTables.size(); k++) {
                     if (listOfTables.get(k).getSectionID() == i + 1 && listOfTables.get(k).getProductID() == j + 1) {
-//                        LOGGER.log(Level.INFO, "Section: " + listOfTables.get(k).getSectionID() + " - Product: " + listOfTables.get(k).getProductID() + " - TestID: " + listOfTables.get(k).getTestID());
 
                         Region spacer = new Region();
                         spacer.setPrefHeight(10);
@@ -228,7 +236,13 @@ public class Main extends Application {
         }
 
         sectionContent.setStyle("-fx-background-color: aliceblue");
-        borderPane.setCenter(sectionContent);
+
+        ScrollPane centerSection = new ScrollPane();
+        centerSection.setFitToWidth(true);
+        centerSection.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        centerSection.setContent(sectionContent);
+
+        borderPane.setCenter(centerSection);
     }
 }
 

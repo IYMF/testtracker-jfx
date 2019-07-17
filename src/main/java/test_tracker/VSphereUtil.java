@@ -15,8 +15,8 @@ public class VSphereUtil {
             Runtime runTime = Runtime.getRuntime();
             String vpxClientLoc = "C:\\Program Files (x86)\\VMware\\Infrastructure\\Virtual Infrastructure Client\\Launcher\\VpxClient.exe";
 
-            // resource here: https://communities.vmware.com/thread/500884
-            runTime.exec(vpxClientLoc +  " -locale en_US -s " + ip + " -u root -p R))Tr0x");
+            // https://communities.vmware.com/message/2474197#2474197
+            runTime.exec(vpxClientLoc + " -locale en_US -s " + ip + " -u root -p R))Tr0x");
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "vSphere connection refused: ", e);
         }
