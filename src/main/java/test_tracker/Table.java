@@ -5,37 +5,37 @@ import javafx.collections.ObservableList;
 public class Table {
 
     private String tableTitle;
+    private int id;
     private int sectionID;
     private int productID;
-    private int testID;
     private ObservableList<Row> rows;
 
-    public Table(String tableTitle, int sectionID, int productID, int testID) {
+    public Table(int id, String tableTitle, int sectionID, int productID) {
+        this.id = id;
         this.tableTitle = tableTitle;
         this.sectionID = sectionID;
         this.productID = productID;
-        this.testID = testID;
 
-        rows = DatabaseUtil.getRows(testID);
+        rows = DatabaseUtil.getRows(id);
+    }
+
+    public int getTableId() {
+        return this.id;
     }
 
     public String getTableTitle() {
-        return tableTitle;
+        return this.tableTitle;
     }
 
     public ObservableList<Row> getRows() {
-        return rows;
+        return this.rows;
     }
 
     public int getProductID() {
-        return productID;
+        return this.productID;
     }
 
     public int getSectionID() {
-        return sectionID;
-    }
-
-    public int getTestID() {
-        return testID;
+        return this.sectionID;
     }
 }

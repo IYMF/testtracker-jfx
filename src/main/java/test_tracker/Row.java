@@ -4,16 +4,18 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Row {
+    private final SimpleIntegerProperty id;
     private final SimpleStringProperty description;
     private final SimpleStringProperty ip;
     private final SimpleStringProperty esxIp;
-//    private final SimpleIntegerProperty testID;
+    private final SimpleIntegerProperty testID;
 
-    public Row(String description, String ip, String esxIp) {
+    public Row(int id, String description, String ip, String esxIp, int testID) {
+        this.id = new SimpleIntegerProperty(id);
         this.description = new SimpleStringProperty(description);
         this.ip = new SimpleStringProperty(ip);
         this.esxIp = new SimpleStringProperty(esxIp);
-//        this.testID = new SimpleIntegerProperty(testID);
+        this.testID = new SimpleIntegerProperty(testID);
     }
 
     public String getDescription() {
@@ -40,9 +42,9 @@ public class Row {
         this.description.set(esxIp);
     }
 
-//    public int getTestID() {
-//        return testID.get();
-//    }
+    public int getTestID() { return this.testID.get(); }
+
+    public int getID() { return this.id.get(); }
 
     public String toString() {
         return this.description + ", " + this.ip + ", " + this.esxIp;

@@ -98,7 +98,7 @@ public class DatabaseUtil {
 
             if (rs != null) {
                 while (rs.next()) {
-                    results.add(new Row(rs.getString("description"), rs.getString("ip"), rs.getString("esxIP")));
+                    results.add(new Row(rs.getInt("id"), rs.getString("description"), rs.getString("ip"), rs.getString("esxIP"), rs.getInt("testID")));
                 }
             }
         } catch (Exception e) {
@@ -106,5 +106,57 @@ public class DatabaseUtil {
         }
 
         return results;
+    }
+
+    public static void addRow(String description, String ip, String esxIp, int testID) {
+        try  {
+            Connection conn = DriverManager.getConnection(DB_URL);
+            Statement st = createStatement(conn);
+            st.executeQuery("INSERT INTO servers SET description = '" + description + "', ip = '" + ip + "', esxIP = '" + esxIp + "', testID = '" + testID + "';");
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "SQL exception in updateRow(): ", e);
+        }
+    }
+
+    public static void updateRow(int id, String description, String ip, String esxIp) {
+        try  {
+            Connection conn = DriverManager.getConnection(DB_URL);
+            Statement st = createStatement(conn);
+            st.executeQuery("UPDATE servers SET description = '" + description + "', ip = '" + ip + "', esxIP = '" + esxIp + "' WHERE id = " + id + ";");
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "SQL exception in updateRow(): ", e);
+        }
+    }
+
+    public static void updateCell(int id, String col, String changedVal) {
+        try  {
+            Connection conn = DriverManager.getConnection(DB_URL);
+            Statement st = createStatement(conn);
+            st.executeQuery("UPDATE servers SET " + col + " = '" + changedVal + "' WHERE id = " + id + ";");
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "SQL exception in updateRow(): ", e);
+        }
+    }
+
+    public static void updateTableTitle(int id, String changedVal) {
+        try  {
+            Connection conn = DriverManager.getConnection(DB_URL);
+            Statement st = createStatement(conn);
+            st.executeQuery("UPDATE tests SET testName = '" + changedVal + "' WHERE id = " + id + ";");
+
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "SQL exception in updateTableTitle(): ", e);
+        }
+    }
+
+    public static void deleteRow(int id) {
+        try  {
+            Connection conn = DriverManager.getConnection(DB_URL);
+            Statement st = createStatement(conn);
+            st.executeQuery("DELETE FROM servers WHERE id = " + id + ";");
+
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "SQL exception in updateTableTitle(): ", e);
+        }
     }
 }
