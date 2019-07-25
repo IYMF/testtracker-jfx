@@ -4,48 +4,50 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Row {
+    private final SimpleIntegerProperty id;
     private final SimpleStringProperty description;
     private final SimpleStringProperty ip;
     private final SimpleStringProperty esxIp;
-//    private final SimpleIntegerProperty testID;
+    private final SimpleIntegerProperty testID;
 
-<span class="fc" id="L12">    public Row(String description, String ip, String esxIp) {</span>
-<span class="fc" id="L13">        this.description = new SimpleStringProperty(description);</span>
-<span class="fc" id="L14">        this.ip = new SimpleStringProperty(ip);</span>
-<span class="fc" id="L15">        this.esxIp = new SimpleStringProperty(esxIp);</span>
-//        this.testID = new SimpleIntegerProperty(testID);
-<span class="fc" id="L17">    }</span>
+<span class="nc" id="L13">    public Row(int id, String description, String ip, String esxIp, int testID) {</span>
+<span class="nc" id="L14">        this.id = new SimpleIntegerProperty(id);</span>
+<span class="nc" id="L15">        this.description = new SimpleStringProperty(description);</span>
+<span class="nc" id="L16">        this.ip = new SimpleStringProperty(ip);</span>
+<span class="nc" id="L17">        this.esxIp = new SimpleStringProperty(esxIp);</span>
+<span class="nc" id="L18">        this.testID = new SimpleIntegerProperty(testID);</span>
+<span class="nc" id="L19">    }</span>
 
     public String getDescription() {
-<span class="fc" id="L20">        return this.description.get();</span>
+<span class="nc" id="L22">        return this.description.get();</span>
     }
 
     public void setDescription(String desc) {
-<span class="nc" id="L24">        this.description.set(desc);</span>
-<span class="nc" id="L25">    }</span>
+<span class="nc" id="L26">        this.description.set(desc);</span>
+<span class="nc" id="L27">    }</span>
 
     public String getIp() {
-<span class="fc" id="L28">        return this.ip.get();</span>
+<span class="nc" id="L30">        return this.ip.get();</span>
     }
 
     public void setIp(String ip) {
-<span class="nc" id="L32">        this.description.set(ip);</span>
-<span class="nc" id="L33">    }</span>
+<span class="nc" id="L34">        this.description.set(ip);</span>
+<span class="nc" id="L35">    }</span>
 
     public String getEsxIp() {
-<span class="fc" id="L36">        return this.esxIp.get();</span>
+<span class="nc" id="L38">        return this.esxIp.get();</span>
     }
 
     public void setEsxIp(String esxIp) {
-<span class="nc" id="L40">        this.description.set(esxIp);</span>
-<span class="nc" id="L41">    }</span>
+<span class="nc" id="L42">        this.description.set(esxIp);</span>
+<span class="nc" id="L43">    }</span>
 
-//    public int getTestID() {
-//        return testID.get();
-//    }
+<span class="nc" id="L45">    public int getTestID() { return this.testID.get(); }</span>
+
+<span class="nc" id="L47">    public int getID() { return this.id.get(); }</span>
 
     public String toString() {
-<span class="nc" id="L48">        return this.description + &quot;, &quot; + this.ip + &quot;, &quot; + this.esxIp;</span>
+<span class="nc" id="L50">        return this.description + &quot;, &quot; + this.ip + &quot;, &quot; + this.esxIp;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TestViewer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">testtracker</a> &gt; <a href="index.source.html" class="el_package">test_tracker</a> &gt; <span class="el_source">TestViewer.java</span></div><h1>TestViewer.java</h1><pre class="source lang-java linenums">package test_tracker;
+
+import javafx.application.Application;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.layout.*;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Pattern;
+
+public class TestViewer extends Application {
+
+<span class="nc" id="L24">    private static final Logger LOGGER = Logger.getLogger(DatabaseUtil.class.getName());</span>
+
+    private BorderPane borderPane;
+    private TabPane tabPane;
+
+<span class="nc" id="L29">    TestViewer(BorderPane borderPane, TabPane tabPane) {</span>
+<span class="nc" id="L30">        this.borderPane = borderPane;</span>
+<span class="nc" id="L31">        this.tabPane = tabPane;</span>
+<span class="nc" id="L32">    }</span>
+
+    @Override
+    public void start(Stage primaryStage) {
+<span class="nc" id="L36">        display();</span>
+<span class="nc" id="L37">    }</span>
+
+    ScrollPane display() {
+
+        // Create table objects
+<span class="nc" id="L42">        ObservableList&lt;Table&gt; listOfTables = DatabaseUtil.getTests();</span>
+
+        // Center section
+<span class="nc" id="L45">        ObservableList&lt;Integer&gt; sectionIDs = DatabaseUtil.getSectionIDs();</span>
+<span class="nc" id="L46">        ObservableList&lt;String&gt; sections = DatabaseUtil.getSections();</span>
+<span class="nc" id="L47">        ObservableList&lt;Integer&gt; productIDs = DatabaseUtil.getProductIDs();</span>
+<span class="nc" id="L48">        ObservableList&lt;String&gt; products = DatabaseUtil.getProducts();</span>
+
+<span class="nc" id="L50">        ContextMenu productContextMenu = new ContextMenu();</span>
+<span class="nc" id="L51">        MenuItem addTableMenuItem = new MenuItem(&quot;Add table&quot;);</span>
+<span class="nc" id="L52">        addTableMenuItem.setGraphic(new ImageView(new Image(&quot;/images/plus.png&quot;)));</span>
+
+<span class="nc" id="L54">        productContextMenu.getItems().addAll(addTableMenuItem);</span>
+
+        // Context menu for table rows
+<span class="nc" id="L57">        ContextMenu tableContextMenu = new ContextMenu();</span>
+
+<span class="nc" id="L59">        Menu vSphereMenu = new Menu(&quot;vSphere&quot;);</span>
+<span class="nc" id="L60">        vSphereMenu.setGraphic(new ImageView(new Image(&quot;/images/vsphereIcon.png&quot;)));</span>
+<span class="nc" id="L61">        MenuItem vSphereThickClientMenuItem = new MenuItem(&quot;Thick Client&quot;);</span>
+<span class="nc" id="L62">        vSphereThickClientMenuItem.setGraphic(new ImageView(new Image(&quot;/images/vsphereIcon.png&quot;)));</span>
+<span class="nc" id="L63">        MenuItem vSphereWebClientMenuItem = new MenuItem(&quot;Web Client&quot;);</span>
+<span class="nc" id="L64">        vSphereWebClientMenuItem.setGraphic(new ImageView(new Image(&quot;/images/vsphereIcon.png&quot;)));</span>
+<span class="nc" id="L65">        vSphereMenu.getItems().addAll(vSphereThickClientMenuItem, vSphereWebClientMenuItem);</span>
+
+<span class="nc" id="L67">        MenuItem jmonMenuItem = new MenuItem(&quot;Open jmon&quot;);</span>
+<span class="nc" id="L68">        jmonMenuItem.setGraphic(new ImageView(new Image(&quot;/images/favicon-area-chart.png&quot;)));</span>
+
+<span class="nc" id="L70">        MenuItem addRowMenuItem = new MenuItem(&quot;Add row&quot;);</span>
+<span class="nc" id="L71">        addRowMenuItem.setGraphic(new ImageView(new Image(&quot;/images/plus.png&quot;)));</span>
+
+<span class="nc" id="L73">        MenuItem editRowMenuItem = new MenuItem(&quot;Edit row&quot;);</span>
+<span class="nc" id="L74">        editRowMenuItem.setGraphic(new ImageView(new Image(&quot;/images/edit.png&quot;)));</span>
+
+<span class="nc" id="L76">        MenuItem deleteRowMenuItem = new MenuItem(&quot;Delete row&quot;);</span>
+<span class="nc" id="L77">        deleteRowMenuItem.setGraphic(new ImageView(new Image(&quot;/images/minus.png&quot;)));</span>
+
+<span class="nc" id="L79">        MenuItem toggleNotesMenuItem = new MenuItem(&quot;Toggle notes&quot;);</span>
+<span class="nc" id="L80">        toggleNotesMenuItem.setGraphic(new ImageView(new Image(&quot;/images/toggle.png&quot;)));</span>
+
+<span class="nc" id="L82">        SeparatorMenuItem separator = new SeparatorMenuItem();</span>
+<span class="nc" id="L83">        SeparatorMenuItem separator2 = new SeparatorMenuItem();</span>
+
+<span class="nc" id="L85">        tableContextMenu.getItems().addAll(editRowMenuItem, addRowMenuItem, deleteRowMenuItem, separator, toggleNotesMenuItem, separator2, jmonMenuItem, vSphereMenu);</span>
+
+<span class="nc" id="L87">        VBox sectionContent = new VBox();</span>
+
+        // Create section areas
+<span class="nc bnc" id="L90" title="All 2 branches missed.">        for (int i = 0; i &lt; sections.size(); i++) {</span>
+<span class="nc" id="L91">            HBox sectionHbox = new HBox();</span>
+<span class="nc" id="L92">            sectionHbox.setAlignment(Pos.CENTER);</span>
+<span class="nc" id="L93">            sectionHbox.setStyle(&quot;-fx-background-color: #323435;-fx-text-fill: aliceblue; -fx-font-size: 16px; -fx-label-padding: 0; -fx-padding: 0;&quot;);</span>
+<span class="nc" id="L94">            sectionHbox.setPadding(new Insets(5.0D, 0.0D, 0, 0.0D));</span>
+
+<span class="nc" id="L96">            Label sectionHeader = new Label(sections.get(i));</span>
+<span class="nc" id="L97">            sectionHeader.setId(Integer.toString(sectionIDs.get(i)));</span>
+<span class="nc" id="L98">            sectionHbox.setPadding(new Insets(0));</span>
+<span class="nc" id="L99">            sectionHeader.setStyle(&quot;-fx-text-fill: aliceblue; -fx-font-weight: 700&quot;);</span>
+<span class="nc" id="L100">            sectionHbox.getChildren().add(sectionHeader);</span>
+
+<span class="nc" id="L102">            sectionContent.getChildren().add(sectionHbox);</span>
+
+<span class="nc" id="L104">            FlowPane productSection = new FlowPane();</span>
+<span class="nc" id="L105">            productSection.setPadding(new Insets(5, 5, 5, 5));</span>
+
+            // Create a column for each product
+<span class="nc bnc" id="L108" title="All 2 branches missed.">            for (int j = 0; j &lt; products.size(); j++) {</span>
+<span class="nc" id="L109">                VBox productColumn = new VBox();</span>
+<span class="nc" id="L110">                productColumn.setPadding(new Insets(0, 5, 0, 5));</span>
+<span class="nc" id="L111">                productColumn.setAlignment(Pos.TOP_CENTER);</span>
+
+<span class="nc" id="L113">                Label colHeader = new Label(products.get(j));</span>
+<span class="nc" id="L114">                colHeader.setId(Integer.toString(productIDs.get(j)));</span>
+<span class="nc" id="L115">                colHeader.setTextAlignment(TextAlignment.CENTER);</span>
+<span class="nc" id="L116">                colHeader.setMinWidth(productColumn.getWidth());</span>
+<span class="nc" id="L117">                colHeader.setStyle(&quot;-fx-font-size: 14px&quot;);</span>
+<span class="nc" id="L118">                colHeader.setOnContextMenuRequested(productContextMenuEvent -&gt; {</span>
+<span class="nc" id="L119">                    productContextMenu.show(colHeader, productContextMenuEvent.getScreenX(), productContextMenuEvent.getScreenY());</span>
+
+<span class="nc" id="L121">                    addTableMenuItem.setOnAction(addTableEvent -&gt; {</span>
+<span class="nc" id="L122">                        HBox editHBox = new HBox();</span>
+<span class="nc" id="L123">                        editHBox.setStyle(&quot;-fx-background-color: aliceblue; -fx-effect: dropshadow(gaussian, black, 30, 0, 0, 1)&quot;);</span>
+
+<span class="nc" id="L125">                        HBox addTableHBox = new HBox();</span>
+<span class="nc" id="L126">                        addTableHBox.setAlignment(Pos.CENTER_LEFT);</span>
+<span class="nc" id="L127">                        Label addTableLabel = new Label(&quot;Test name: &quot;);</span>
+<span class="nc" id="L128">                        TextField addTableTextField = new TextField();</span>
+<span class="nc" id="L129">                        addTableTextField.setPrefWidth(250);</span>
+<span class="nc" id="L130">                        addTableHBox.getChildren().addAll(addTableLabel, addTableTextField);</span>
+
+<span class="nc" id="L132">                        HBox detailsHBox = new HBox();</span>
+<span class="nc" id="L133">                        detailsHBox.getChildren().addAll(addTableHBox);</span>
+
+<span class="nc" id="L135">                        Button submitBtn = new Button(&quot;Submit&quot;);</span>
+<span class="nc" id="L136">                        submitBtn.setStyle(&quot;-fx-background-color: #0073e7; -fx-text-fill: aliceblue;&quot;);</span>
+<span class="nc" id="L137">                        submitBtn.setAlignment(Pos.CENTER_RIGHT);</span>
+<span class="nc" id="L138">                        submitBtn.setOnAction(submitEvent -&gt; {</span>
+                            try {
+<span class="nc" id="L140">                                DatabaseUtil.addTest(</span>
+<span class="nc" id="L141">                                        addTableTextField.getText(),</span>
+<span class="nc" id="L142">                                        Integer.parseInt(sectionHeader.getId()),</span>
+<span class="nc" id="L143">                                        Integer.parseInt(colHeader.getId())</span>
+                                );
+
+<span class="nc" id="L146">                                refreshContents();</span>
+<span class="nc" id="L147">                            } catch (Exception ex) {</span>
+<span class="nc" id="L148">                                LOGGER.log(Level.SEVERE, &quot;Unable to create a new product: &quot;, ex);</span>
+<span class="nc" id="L149">                            }</span>
+<span class="nc" id="L150">                            borderPane.setBottom(null);</span>
+<span class="nc" id="L151">                        });</span>
+
+<span class="nc" id="L153">                        Button cancelBtn = new Button(&quot;Cancel&quot;);</span>
+<span class="nc" id="L154">                        cancelBtn.setStyle(&quot;-fx-background-color: #0073e7; -fx-text-fill: aliceblue;&quot;);</span>
+<span class="nc" id="L155">                        cancelBtn.setAlignment(Pos.CENTER_RIGHT);</span>
+<span class="nc" id="L156">                        cancelBtn.setOnAction(ex -&gt; borderPane.setBottom(null));</span>
+
+<span class="nc" id="L158">                        Region btnSpacer = new Region();</span>
+<span class="nc" id="L159">                        btnSpacer.setMinWidth(5);</span>
+
+<span class="nc" id="L161">                        HBox btnHBox = new HBox();</span>
+<span class="nc" id="L162">                        btnHBox.getChildren().addAll(submitBtn, btnSpacer, cancelBtn);</span>
+
+<span class="nc" id="L164">                        editHBox.getChildren().addAll(detailsHBox, btnHBox);</span>
+<span class="nc" id="L165">                        editHBox.setPadding(new Insets(5));</span>
+<span class="nc" id="L166">                        editHBox.setHgrow(detailsHBox, Priority.ALWAYS);</span>
+<span class="nc" id="L167">                        editHBox.setAlignment(Pos.CENTER_LEFT);</span>
+<span class="nc" id="L168">                        borderPane.setBottom(editHBox);</span>
+<span class="nc" id="L169">                    });</span>
+<span class="nc" id="L170">                });</span>
+
+<span class="nc" id="L172">                productColumn.getChildren().add(colHeader);</span>
+
+                // Create all tables for each product
+<span class="nc bnc" id="L175" title="All 2 branches missed.">                for (int k = 0; k &lt; listOfTables.size(); k++) {</span>
+<span class="nc bnc" id="L176" title="All 4 branches missed.">                    if (listOfTables.get(k).getSectionID() == sectionIDs.get(i) &amp;&amp; listOfTables.get(k).getProductID() == productIDs.get(j)) {</span>
+
+<span class="nc" id="L178">                        Region spacer = new Region();</span>
+<span class="nc" id="L179">                        spacer.setPrefHeight(5);</span>
+
+                        // Label for each table
+<span class="nc" id="L182">                        Label testName = new Label(listOfTables.get(k).getTableTitle());</span>
+<span class="nc" id="L183">                        testName.setId(Integer.toString(listOfTables.get(k).getTableId()));</span>
+
+<span class="nc" id="L185">                        ContextMenu labelContextMenu = new ContextMenu();</span>
+<span class="nc" id="L186">                        MenuItem labelEditMenuItem = new MenuItem(&quot;Edit test name&quot;);</span>
+<span class="nc" id="L187">                        labelEditMenuItem.setGraphic(new ImageView(new Image(&quot;/images/edit.png&quot;)));</span>
+
+<span class="nc" id="L189">                        SeparatorMenuItem testSeparator = new SeparatorMenuItem();</span>
+
+<span class="nc" id="L191">                        MenuItem deleteTestMenuItem = new MenuItem(&quot;Delete test&quot;);</span>
+<span class="nc" id="L192">                        deleteTestMenuItem.setGraphic(new ImageView(new Image(&quot;/images/minus.png&quot;)));</span>
+
+<span class="nc" id="L194">                        labelContextMenu.getItems().addAll(labelEditMenuItem, testSeparator, deleteTestMenuItem);</span>
+
+<span class="nc" id="L196">                        testName.setOnContextMenuRequested(e -&gt; {</span>
+<span class="nc" id="L197">                            labelContextMenu.show(testName, e.getScreenX(), e.getScreenY());</span>
+<span class="nc" id="L198">                            labelEditMenuItem.setOnAction(labelEditevent -&gt; {</span>
+
+<span class="nc" id="L200">                                HBox editHBox = new HBox();</span>
+<span class="nc" id="L201">                                editHBox.setStyle(&quot;-fx-background-color: aliceblue; -fx-effect: dropshadow(gaussian, black, 30, 0, 0, 1)&quot;);</span>
+
+<span class="nc" id="L203">                                HBox tableTitleHBox = new HBox();</span>
+<span class="nc" id="L204">                                tableTitleHBox.setAlignment(Pos.CENTER_LEFT);</span>
+<span class="nc" id="L205">                                Label tableTitleLabel = new Label(&quot;Table Title: &quot;);</span>
+<span class="nc" id="L206">                                TextField tableTitleTextField = new TextField(testName.getText());</span>
+<span class="nc" id="L207">                                tableTitleTextField.setPrefWidth(250);</span>
+<span class="nc" id="L208">                                tableTitleHBox.getChildren().addAll(tableTitleLabel, tableTitleTextField);</span>
+
+<span class="nc" id="L210">                                HBox detailsHBox = new HBox();</span>
+<span class="nc" id="L211">                                detailsHBox.getChildren().addAll(tableTitleHBox);</span>
+
+<span class="nc" id="L213">                                Button submitBtn = new Button(&quot;Submit&quot;);</span>
+<span class="nc" id="L214">                                submitBtn.setStyle(&quot;-fx-background-color: #0073e7; -fx-text-fill: aliceblue;&quot;);</span>
+<span class="nc" id="L215">                                submitBtn.setAlignment(Pos.CENTER_RIGHT);</span>
+<span class="nc" id="L216">                                submitBtn.setOnAction(submitEvent -&gt; {</span>
+<span class="nc" id="L217">                                    String[] splitId = testName.getId().split(&quot;=&quot;);</span>
+                                    try {
+<span class="nc" id="L219">                                        DatabaseUtil.updateTableTitle(</span>
+<span class="nc" id="L220">                                                Integer.parseInt(splitId[0]),</span>
+<span class="nc" id="L221">                                                tableTitleTextField.getText()</span>
+                                        );
+
+<span class="nc" id="L224">                                    } catch (Exception ex) {</span>
+<span class="nc" id="L225">                                        LOGGER.log(Level.SEVERE, &quot;Unable to update table title: &quot;, e);</span>
+<span class="nc" id="L226">                                    }</span>
+
+<span class="nc" id="L228">                                    testName.setText(tableTitleTextField.getText());</span>
+<span class="nc" id="L229">                                    borderPane.setBottom(null);</span>
+<span class="nc" id="L230">                                });</span>
+
+<span class="nc" id="L232">                                Button cancelBtn = new Button(&quot;Cancel&quot;);</span>
+<span class="nc" id="L233">                                cancelBtn.setStyle(&quot;-fx-background-color: #0073e7; -fx-text-fill: aliceblue;&quot;);</span>
+<span class="nc" id="L234">                                cancelBtn.setAlignment(Pos.CENTER_RIGHT);</span>
+<span class="nc" id="L235">                                cancelBtn.setOnAction(ex -&gt; borderPane.setBottom(null));</span>
+
+<span class="nc" id="L237">                                Region btnSpacer = new Region();</span>
+<span class="nc" id="L238">                                btnSpacer.setMinWidth(5);</span>
+
+<span class="nc" id="L240">                                HBox btnHBox = new HBox();</span>
+<span class="nc" id="L241">                                btnHBox.getChildren().addAll(submitBtn, btnSpacer, cancelBtn);</span>
+
+<span class="nc" id="L243">                                editHBox.getChildren().addAll(detailsHBox, btnHBox);</span>
+<span class="nc" id="L244">                                editHBox.setPadding(new Insets(5));</span>
+<span class="nc" id="L245">                                editHBox.setHgrow(detailsHBox, Priority.ALWAYS);</span>
+<span class="nc" id="L246">                                editHBox.setAlignment(Pos.CENTER_LEFT);</span>
+<span class="nc" id="L247">                                borderPane.setBottom(editHBox);</span>
+<span class="nc" id="L248">                            });</span>
+
+<span class="nc" id="L250">                            deleteTestMenuItem.setOnAction(deleteTestEvent -&gt; {</span>
+<span class="nc" id="L251">                                Boolean confirmDeleteTest = ConfirmBox.display(&quot;Delete test&quot;, &quot;Are you sure you want to delete this test?&quot;);</span>
+
+<span class="nc bnc" id="L253" title="All 2 branches missed.">                                if (confirmDeleteTest) {</span>
+<span class="nc" id="L254">                                    DatabaseUtil.deleteTest(Integer.parseInt(testName.getId()));</span>
+<span class="nc" id="L255">                                    refreshContents();</span>
+                                }
+<span class="nc" id="L257">                            });</span>
+<span class="nc" id="L258">                        });</span>
+<span class="nc" id="L259">                        testName.setMaxWidth(Double.MAX_VALUE);</span>
+<span class="nc" id="L260">                        testName.setAlignment(Pos.CENTER);</span>
+<span class="nc" id="L261">                        testName.setStyle(&quot;-fx-background-color: #0073e7; -fx-text-fill: aliceblue; -fx-font-weight: 800;&quot;);</span>
+
+                        // Create a new table
+<span class="nc" id="L264">                        TableView&lt;Row&gt; table = new TableView();</span>
+<span class="nc" id="L265">                        table.setId(Integer.toString(listOfTables.get(k).getTableId()) + &quot;,&quot; + Integer.toString(listOfTables.get(k).showNotes()));</span>
+<span class="nc" id="L266">                        table.setFixedCellSize(20);</span>
+<span class="nc" id="L267">                        table.setMaxHeight(table.getFixedCellSize() * (listOfTables.get(k).getRows().size() + 1.2));</span>
+<span class="nc" id="L268">                        table.setEditable(true);</span>
+<span class="nc" id="L269">                        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);</span>
+
+                        // Create columns and set values
+<span class="nc" id="L272">                        TableColumn&lt;Row, String&gt; descriptionColumn = new TableColumn(&quot;Description&quot;);</span>
+//                        descriptionColumn.setResizable(false);
+<span class="nc" id="L274">                        descriptionColumn.setCellFactory(TextFieldTableCell.forTableColumn());</span>
+<span class="nc" id="L275">                        descriptionColumn.setCellValueFactory(new PropertyValueFactory(&quot;description&quot;));</span>
+<span class="nc" id="L276">                        descriptionColumn.setMaxWidth(95);</span>
+<span class="nc" id="L277">                        descriptionColumn.setOnEditCommit(ev -&gt; {</span>
+<span class="nc" id="L278">                            DatabaseUtil.updateCell(</span>
+<span class="nc" id="L279">                                    ev.getTableView().getItems().get(ev.getTablePosition().getRow()).getID(), // row id</span>
+<span class="nc" id="L280">                                    columnName(ev.getTableView().getVisibleLeafIndex(ev.getTableColumn())), // column name</span>
+<span class="nc" id="L281">                                    ev.getNewValue() // changed value</span>
+                            );
+<span class="nc" id="L283">                        });</span>
+
+<span class="nc" id="L285">                        TableColumn&lt;Row, String&gt; ipColumn = new TableColumn(&quot;IP&quot;);</span>
+//                        ipColumn.setResizable(false);
+<span class="nc" id="L287">                        ipColumn.setCellFactory(TextFieldTableCell.forTableColumn());</span>
+<span class="nc" id="L288">                        ipColumn.setCellValueFactory(new PropertyValueFactory(&quot;ip&quot;));</span>
+<span class="nc" id="L289">                        ipColumn.setStyle(&quot;-fx-alignment: CENTER&quot;);</span>
+<span class="nc" id="L290">                        ipColumn.setMaxWidth(60);</span>
+<span class="nc" id="L291">                        ipColumn.setOnEditCommit(ev -&gt; {</span>
+<span class="nc" id="L292">                            DatabaseUtil.updateCell(</span>
+<span class="nc" id="L293">                                    ev.getTableView().getItems().get(ev.getTablePosition().getRow()).getID(), // row id</span>
+<span class="nc" id="L294">                                    columnName(ev.getTableView().getVisibleLeafIndex(ev.getTableColumn())), // column name</span>
+<span class="nc" id="L295">                                    ev.getNewValue() // changed value</span>
+                            );
+<span class="nc" id="L297">                        });</span>
+
+<span class="nc" id="L299">                        TableColumn&lt;Row, String&gt; esxIpColumn = new TableColumn(&quot;ESX IP&quot;);</span>
+//                        esxIpColumn.setResizable(false);
+<span class="nc" id="L301">                        esxIpColumn.setCellFactory(TextFieldTableCell.forTableColumn());</span>
+<span class="nc" id="L302">                        esxIpColumn.setCellValueFactory(new PropertyValueFactory(&quot;esxIp&quot;));</span>
+<span class="nc" id="L303">                        esxIpColumn.setStyle(&quot;-fx-alignment: CENTER&quot;);</span>
+<span class="nc" id="L304">                        esxIpColumn.setMaxWidth(60);</span>
+<span class="nc" id="L305">                        esxIpColumn.setOnEditCommit(ev -&gt; {</span>
+<span class="nc" id="L306">                            DatabaseUtil.updateCell(</span>
+<span class="nc" id="L307">                                    ev.getTableView().getItems().get(ev.getTablePosition().getRow()).getID(), // row id</span>
+<span class="nc" id="L308">                                    columnName(ev.getTableView().getVisibleLeafIndex(ev.getTableColumn())), // column name</span>
+<span class="nc" id="L309">                                    ev.getNewValue() // changed value</span>
+                            );
+<span class="nc" id="L311">                        });</span>
+
+                        // Give the table the columns
+<span class="nc" id="L314">                        table.getColumns().addAll(descriptionColumn, ipColumn, esxIpColumn);</span>
+<span class="nc" id="L315">                        table.setItems(listOfTables.get(k).getRows());</span>
+<span class="nc" id="L316">                        table.setOnContextMenuRequested(new EventHandler&lt;ContextMenuEvent&gt;() {</span>
+                            @Override
+                            public void handle(ContextMenuEvent event) {
+<span class="nc" id="L319">                                tableContextMenu.show(table, event.getScreenX(), event.getScreenY());</span>
+<span class="nc" id="L320">                                vSphereThickClientMenuItem.setOnAction(ev -&gt; {</span>
+                                    try {
+<span class="nc" id="L322">                                        VSphereUtil.openVSphereHere(&quot;151.155.&quot; + table.getSelectionModel().getSelectedItem().getEsxIp());</span>
+<span class="nc" id="L323">                                    } catch (Exception e) {</span>
+<span class="nc" id="L324">                                        LOGGER.log(Level.SEVERE, &quot;Failed to open in vSphere: &quot;, e);</span>
+<span class="nc" id="L325">                                    }</span>
+<span class="nc" id="L326">                                });</span>
+
+<span class="nc" id="L328">                                vSphereWebClientMenuItem.setOnAction(webClientEvent -&gt; {</span>
+<span class="nc" id="L329">                                    getHostServices().showDocument(&quot;https://151.155.&quot; + table.getSelectionModel().getSelectedItem().getEsxIp() + &quot;/ui/#/login&quot;);</span>
+<span class="nc" id="L330">                                });</span>
+
+<span class="nc" id="L332">                                jmonMenuItem.setOnAction(ev -&gt;</span>
+<span class="nc" id="L333">                                        table.getItems().forEach(row -&gt; {</span>
+<span class="nc bnc" id="L334" title="All 2 branches missed.">                                            if (Pattern.compile(Pattern.quote(&quot;jmon&quot;), Pattern.CASE_INSENSITIVE).matcher(row.getDescription()).find()) {</span>
+                                                try {
+<span class="nc" id="L336">                                                    getHostServices().showDocument(&quot;http://151.155.&quot; + row.getIp());</span>
+<span class="nc" id="L337">                                                } catch (Exception e) {</span>
+<span class="nc" id="L338">                                                    LOGGER.log(Level.SEVERE, &quot;Error opening link in browser: &quot;, e);</span>
+<span class="nc" id="L339">                                                }</span>
+                                            }
+<span class="nc" id="L341">                                        })</span>
+                                );
+
+<span class="nc" id="L344">                                editRowMenuItem.setOnAction(ev -&gt; {</span>
+<span class="nc" id="L345">                                    System.out.println(table.getSelectionModel().getSelectedItem().getID());</span>
+<span class="nc" id="L346">                                    HBox editHBox = new HBox();</span>
+<span class="nc" id="L347">                                    editHBox.setStyle(&quot;-fx-background-color: aliceblue; -fx-effect: dropshadow(gaussian, black, 30, 0, 0, 1)&quot;);</span>
+
+<span class="nc" id="L349">                                    Region spacer1 = new Region();</span>
+<span class="nc" id="L350">                                    spacer1.setMinWidth(20);</span>
+<span class="nc" id="L351">                                    Region spacer2 = new Region();</span>
+<span class="nc" id="L352">                                    spacer2.setMinWidth(20);</span>
+
+<span class="nc" id="L354">                                    HBox descHBox = new HBox();</span>
+<span class="nc" id="L355">                                    descHBox.setAlignment(Pos.CENTER_LEFT);</span>
+<span class="nc" id="L356">                                    Label descLabel = new Label(&quot;Description: &quot;);</span>
+<span class="nc" id="L357">                                    TextField descTextField = new TextField(table.getSelectionModel().getSelectedItem().getDescription());</span>
+<span class="nc" id="L358">                                    descTextField.setMaxWidth(130);</span>
+<span class="nc" id="L359">                                    descHBox.getChildren().addAll(descLabel, descTextField);</span>
+
+<span class="nc" id="L361">                                    HBox ipHBox = new HBox();</span>
+<span class="nc" id="L362">                                    ipHBox.setAlignment(Pos.CENTER_LEFT);</span>
+<span class="nc" id="L363">                                    Label ipLabel = new Label(&quot;IP: &quot;);</span>
+<span class="nc" id="L364">                                    TextField ipTextField = new TextField(table.getSelectionModel().getSelectedItem().getIp());</span>
+<span class="nc" id="L365">                                    ipTextField.setMaxWidth(60);</span>
+<span class="nc" id="L366">                                    ipHBox.getChildren().addAll(ipLabel, ipTextField);</span>
+
+<span class="nc" id="L368">                                    HBox esxIpHBox = new HBox();</span>
+<span class="nc" id="L369">                                    esxIpHBox.setAlignment(Pos.CENTER_LEFT);</span>
+<span class="nc" id="L370">                                    Label esxIpLabel = new Label(&quot;ESX IP: &quot;);</span>
+<span class="nc" id="L371">                                    TextField esxIpTextField = new TextField(table.getSelectionModel().getSelectedItem().getEsxIp());</span>
+<span class="nc" id="L372">                                    esxIpTextField.setMaxWidth(60);</span>
+<span class="nc" id="L373">                                    esxIpHBox.getChildren().addAll(esxIpLabel, esxIpTextField);</span>
+
+<span class="nc" id="L375">                                    HBox detailsHBox = new HBox();</span>
+<span class="nc" id="L376">                                    detailsHBox.getChildren().addAll(descHBox, spacer1, ipHBox, spacer2, esxIpHBox);</span>
+
+<span class="nc" id="L378">                                    Button submitBtn = new Button(&quot;Submit&quot;);</span>
+<span class="nc" id="L379">                                    submitBtn.setStyle(&quot;-fx-background-color: #0073e7; -fx-text-fill: aliceblue;&quot;);</span>
+<span class="nc" id="L380">                                    submitBtn.setAlignment(Pos.CENTER_RIGHT);</span>
+<span class="nc" id="L381">                                    submitBtn.setOnAction(submitEvent -&gt; {</span>
+                                        try {
+<span class="nc" id="L383">                                            DatabaseUtil.updateRow(</span>
+<span class="nc" id="L384">                                                    table.getSelectionModel().getSelectedItem().getID(),</span>
+<span class="nc" id="L385">                                                    descTextField.getText(),</span>
+<span class="nc" id="L386">                                                    ipTextField.getText(),</span>
+<span class="nc" id="L387">                                                    esxIpTextField.getText()</span>
+                                            );
+
+<span class="nc" id="L390">                                        } catch (Exception e) {</span>
+<span class="nc" id="L391">                                            LOGGER.log(Level.SEVERE, &quot;Unable to update row: &quot;, e);</span>
+<span class="nc" id="L392">                                        }</span>
+
+<span class="nc" id="L394">                                        borderPane.setBottom(null);</span>
+
+                                        // REFACTOR LATER
+<span class="nc" id="L397">                                        refreshContents();</span>
+<span class="nc" id="L398">                                    });</span>
+
+<span class="nc" id="L400">                                    Button cancelBtn = new Button(&quot;Cancel&quot;);</span>
+<span class="nc" id="L401">                                    cancelBtn.setStyle(&quot;-fx-background-color: #0073e7; -fx-text-fill: aliceblue;&quot;);</span>
+<span class="nc" id="L402">                                    cancelBtn.setAlignment(Pos.CENTER_RIGHT);</span>
+<span class="nc" id="L403">                                    cancelBtn.setOnAction(e -&gt; borderPane.setBottom(null));</span>
+
+<span class="nc" id="L405">                                    Region btnSpacer = new Region();</span>
+<span class="nc" id="L406">                                    btnSpacer.setMinWidth(5);</span>
+
+<span class="nc" id="L408">                                    HBox btnHBox = new HBox();</span>
+<span class="nc" id="L409">                                    btnHBox.getChildren().addAll(submitBtn, btnSpacer, cancelBtn);</span>
+
+<span class="nc" id="L411">                                    editHBox.getChildren().addAll(detailsHBox, btnHBox);</span>
+<span class="nc" id="L412">                                    editHBox.setPadding(new Insets(5));</span>
+<span class="nc" id="L413">                                    editHBox.setHgrow(detailsHBox, Priority.ALWAYS);</span>
+<span class="nc" id="L414">                                    editHBox.setAlignment(Pos.CENTER_LEFT);</span>
+<span class="nc" id="L415">                                    borderPane.setBottom(editHBox);</span>
+<span class="nc" id="L416">                                });</span>
+
+<span class="nc" id="L418">                                addRowMenuItem.setOnAction(addRowEvent -&gt; {</span>
+<span class="nc" id="L419">                                    HBox addHBox = new HBox();</span>
+<span class="nc" id="L420">                                    addHBox.setStyle(&quot;-fx-background-color: aliceblue; -fx-effect: dropshadow(gaussian, black, 30, 0, 0, 1)&quot;);</span>
+
+<span class="nc" id="L422">                                    Region spacer1 = new Region();</span>
+<span class="nc" id="L423">                                    spacer1.setMinWidth(20);</span>
+<span class="nc" id="L424">                                    Region spacer2 = new Region();</span>
+<span class="nc" id="L425">                                    spacer2.setMinWidth(20);</span>
+
+<span class="nc" id="L427">                                    HBox descHBox = new HBox();</span>
+<span class="nc" id="L428">                                    descHBox.setAlignment(Pos.CENTER_LEFT);</span>
+<span class="nc" id="L429">                                    Label descLabel = new Label(&quot;Description: &quot;);</span>
+<span class="nc" id="L430">                                    TextField descTextField = new TextField();</span>
+<span class="nc" id="L431">                                    descTextField.setMaxWidth(130);</span>
+<span class="nc" id="L432">                                    descHBox.getChildren().addAll(descLabel, descTextField);</span>
+
+<span class="nc" id="L434">                                    HBox ipHBox = new HBox();</span>
+<span class="nc" id="L435">                                    ipHBox.setAlignment(Pos.CENTER_LEFT);</span>
+<span class="nc" id="L436">                                    Label ipLabel = new Label(&quot;IP: &quot;);</span>
+<span class="nc" id="L437">                                    TextField ipTextField = new TextField();</span>
+<span class="nc" id="L438">                                    ipTextField.setMaxWidth(60);</span>
+<span class="nc" id="L439">                                    ipHBox.getChildren().addAll(ipLabel, ipTextField);</span>
+
+<span class="nc" id="L441">                                    HBox esxIpHBox = new HBox();</span>
+<span class="nc" id="L442">                                    esxIpHBox.setAlignment(Pos.CENTER_LEFT);</span>
+<span class="nc" id="L443">                                    Label esxIpLabel = new Label(&quot;ESX IP: &quot;);</span>
+<span class="nc" id="L444">                                    TextField esxIpTextField = new TextField();</span>
+<span class="nc" id="L445">                                    esxIpTextField.setMaxWidth(60);</span>
+<span class="nc" id="L446">                                    esxIpHBox.getChildren().addAll(esxIpLabel, esxIpTextField);</span>
+
+<span class="nc" id="L448">                                    HBox detailsHBox = new HBox();</span>
+<span class="nc" id="L449">                                    detailsHBox.getChildren().addAll(descHBox, spacer1, ipHBox, spacer2, esxIpHBox);</span>
+
+<span class="nc" id="L451">                                    Button submitBtn = new Button(&quot;Submit&quot;);</span>
+<span class="nc" id="L452">                                    submitBtn.setStyle(&quot;-fx-background-color: #0073e7; -fx-text-fill: aliceblue;&quot;);</span>
+<span class="nc" id="L453">                                    submitBtn.setAlignment(Pos.CENTER_RIGHT);</span>
+<span class="nc" id="L454">                                    submitBtn.setOnAction(submitEvent -&gt; {</span>
+                                        try {
+<span class="nc" id="L456">                                            DatabaseUtil.addRow(</span>
+<span class="nc" id="L457">                                                    descTextField.getText(),</span>
+<span class="nc" id="L458">                                                    ipTextField.getText(),</span>
+<span class="nc" id="L459">                                                    esxIpTextField.getText(),</span>
+<span class="nc" id="L460">                                                    Integer.parseInt(testName.getId())</span>
+//                                                    table.getSelectionModel().getSelectedItem().getTestID()
+                                            );
+<span class="nc" id="L463">                                            System.out.println(&quot;add row&quot;);</span>
+<span class="nc" id="L464">                                        } catch (Exception e) {</span>
+<span class="nc" id="L465">                                            LOGGER.log(Level.SEVERE, &quot;Unable to update row: &quot;, e);</span>
+<span class="nc" id="L466">                                        }</span>
+
+<span class="nc" id="L468">                                        borderPane.setBottom(null);</span>
+
+                                        // REFACTOR LATER
+<span class="nc" id="L471">                                        refreshContents();</span>
+<span class="nc" id="L472">                                    });</span>
+
+<span class="nc" id="L474">                                    Button cancelBtn = new Button(&quot;Cancel&quot;);</span>
+<span class="nc" id="L475">                                    cancelBtn.setStyle(&quot;-fx-background-color: #0073e7; -fx-text-fill: aliceblue;&quot;);</span>
+<span class="nc" id="L476">                                    cancelBtn.setAlignment(Pos.CENTER_RIGHT);</span>
+<span class="nc" id="L477">                                    cancelBtn.setOnAction(e -&gt; borderPane.setBottom(null));</span>
+
+<span class="nc" id="L479">                                    Region btnSpacer = new Region();</span>
+<span class="nc" id="L480">                                    btnSpacer.setMinWidth(5);</span>
+
+<span class="nc" id="L482">                                    HBox btnHBox = new HBox();</span>
+<span class="nc" id="L483">                                    btnHBox.getChildren().addAll(submitBtn, btnSpacer, cancelBtn);</span>
+
+<span class="nc" id="L485">                                    addHBox.getChildren().addAll(detailsHBox, btnHBox);</span>
+<span class="nc" id="L486">                                    addHBox.setPadding(new Insets(5));</span>
+<span class="nc" id="L487">                                    addHBox.setHgrow(detailsHBox, Priority.ALWAYS);</span>
+<span class="nc" id="L488">                                    addHBox.setAlignment(Pos.CENTER_LEFT);</span>
+<span class="nc" id="L489">                                    borderPane.setBottom(addHBox);</span>
+<span class="nc" id="L490">                                });</span>
+
+<span class="nc" id="L492">                                deleteRowMenuItem.setOnAction(deleteEvent -&gt; {</span>
+<span class="nc" id="L493">                                    Row row = table.getSelectionModel().getSelectedItem();</span>
+
+<span class="nc" id="L495">                                    Boolean confirmDelete = ConfirmBox.display(&quot;Delete row&quot;, &quot;Are you sure you want to delete this row?&quot;);</span>
+
+<span class="nc bnc" id="L497" title="All 2 branches missed.">                                    if (confirmDelete) {</span>
+<span class="nc" id="L498">                                        DatabaseUtil.deleteRow(row.getID());</span>
+<span class="nc" id="L499">                                        refreshContents();</span>
+                                    }
+<span class="nc" id="L501">                                });</span>
+
+<span class="nc" id="L503">                                toggleNotesMenuItem.setOnAction(toggleNotesEvent -&gt; {</span>
+<span class="nc" id="L504">                                    String[] splitId = table.getId().split(&quot;,&quot;);</span>
+<span class="nc" id="L505">                                    int testID = Integer.parseInt(splitId[0]);</span>
+<span class="nc" id="L506">                                    int showNote = Integer.parseInt(splitId[1]);</span>
+
+<span class="nc bnc" id="L508" title="All 2 branches missed.">                                    DatabaseUtil.updateShowNotes(testID, showNote == 1 ? 0 : 1);</span>
+
+<span class="nc" id="L510">                                    refreshContents();</span>
+<span class="nc" id="L511">                                });</span>
+<span class="nc" id="L512">                            }</span>
+                        });
+
+<span class="nc" id="L515">                        table.setMaxWidth(descriptionColumn.getMaxWidth() + ipColumn.getMaxWidth() + esxIpColumn.getMaxWidth());</span>
+
+<span class="nc" id="L517">                        TextArea notesTextArea = new TextArea();</span>
+<span class="nc" id="L518">                        notesTextArea.setId(Integer.toString(listOfTables.get(k).getTableId()));</span>
+<span class="nc" id="L519">                        notesTextArea.setText(listOfTables.get(k).getNotes());</span>
+<span class="nc" id="L520">                        notesTextArea.setMaxWidth(table.getMaxWidth());</span>
+<span class="nc" id="L521">                        notesTextArea.setWrapText(true);</span>
+<span class="nc" id="L522">                        notesTextArea.setStyle(&quot;-fx-background-color: aliceblue&quot;);</span>
+<span class="nc bnc" id="L523" title="All 2 branches missed.">                        if (listOfTables.get(k).showNotes() == 0) {</span>
+<span class="nc" id="L524">                            notesTextArea.setVisible(false);</span>
+<span class="nc" id="L525">                            notesTextArea.setMaxHeight(0);</span>
+<span class="nc" id="L526">                            notesTextArea.setMinHeight(0);</span>
+<span class="nc" id="L527">                            notesTextArea.setPrefHeight(0);</span>
+                        } else {
+<span class="nc" id="L529">                            notesTextArea.setVisible(true);</span>
+<span class="nc" id="L530">                            notesTextArea.setMinHeight(40);</span>
+<span class="nc" id="L531">                            notesTextArea.setMaxHeight(40);</span>
+<span class="nc" id="L532">                            notesTextArea.setPrefHeight(40);</span>
+                        }
+<span class="nc" id="L534">                        notesTextArea.setStyle(&quot;-fx-font-size: 11&quot;);</span>
+<span class="nc" id="L535">                        notesTextArea.setOnKeyReleased(typingHandler -&gt; {</span>
+<span class="nc" id="L536">                            DatabaseUtil.updateNotes(Integer.parseInt(notesTextArea.getId()), notesTextArea.getText());</span>
+<span class="nc" id="L537">                        });</span>
+
+<span class="nc" id="L539">                        VBox testNameAndTable = new VBox();</span>
+<span class="nc" id="L540">                        testNameAndTable.setStyle(&quot;-fx-font-size: 11; -fx-effect: dropshadow(gaussian, gray, 20, 0, 2, 2)&quot;);</span>
+<span class="nc" id="L541">                        testNameAndTable.getChildren().addAll(testName, table, notesTextArea);</span>
+
+                        // Add table to column
+<span class="nc" id="L544">                        productColumn.getChildren().addAll(spacer, testNameAndTable);</span>
+
+                    }
+                }
+<span class="nc" id="L548">                productSection.getChildren().add(productColumn);</span>
+            }
+<span class="nc" id="L550">            sectionContent.getChildren().add(productSection);</span>
+        }
+
+<span class="nc" id="L553">        sectionContent.setStyle(&quot;-fx-background-color: aliceblue&quot;);</span>
+
+<span class="nc" id="L555">        ScrollPane centerSection = new ScrollPane();</span>
+<span class="nc" id="L556">        centerSection.setFitToWidth(true);</span>
+<span class="nc" id="L557">        centerSection.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);</span>
+<span class="nc" id="L558">        centerSection.setContent(sectionContent);</span>
+
+<span class="nc" id="L560">        return centerSection;</span>
+    }
+
+    private String columnName(int colIndex) {
+<span class="nc bnc" id="L564" title="All 2 branches missed.">        if (colIndex == 0) {</span>
+<span class="nc" id="L565">            return &quot;description&quot;;</span>
+<span class="nc bnc" id="L566" title="All 2 branches missed.">        } else if (colIndex == 1) {</span>
+<span class="nc" id="L567">            return &quot;ip&quot;;</span>
+<span class="nc bnc" id="L568" title="All 2 branches missed.">        } else if (colIndex == 2) {</span>
+<span class="nc" id="L569">            return &quot;esxIP&quot;;</span>
+        } else {
+<span class="nc" id="L571">            return &quot;invalid column name&quot;;</span>
+        }
+    }
+
+    private void refreshContents() {
+<span class="nc" id="L576">        tabPane.getTabs().get(0).setContent(this.display());</span>
+<span class="nc" id="L577">    }</span>
+}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

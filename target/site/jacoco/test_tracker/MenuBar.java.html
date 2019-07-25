@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MenuBar.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">testtracker</a> &gt; <a href="index.source.html" class="el_package">test_tracker</a> &gt; <span class="el_source">MenuBar.java</span></div><h1>MenuBar.java</h1><pre class="source lang-java linenums">package test_tracker;
+
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class MenuBar extends Application {
+
+    private final BorderPane borderPane;
+    private final TabPane tabPane;
+    private final TestViewer testViewer;
+    private final JmonViewer jmonViewer;
+
+<span class="nc" id="L22">    private static final Logger LOGGER = Logger.getLogger(DatabaseUtil.class.getName());</span>
+
+<span class="nc" id="L24">    MenuBar(BorderPane borderPane, TabPane tabPane, TestViewer testViewer, JmonViewer jmonViewer) {</span>
+<span class="nc" id="L25">        this.borderPane = borderPane;</span>
+<span class="nc" id="L26">        this.tabPane = tabPane;</span>
+<span class="nc" id="L27">        this.testViewer = testViewer;</span>
+<span class="nc" id="L28">        this.jmonViewer = jmonViewer;</span>
+<span class="nc" id="L29">    }</span>
+
+    @Override
+    public void start(Stage primaryStage) {
+
+<span class="nc" id="L34">    }</span>
+
+    public HBox display() {
+
+<span class="nc" id="L38">        HBox topMenuHBox = new HBox();</span>
+//        TestViewer testViewer = new TestViewer(borderPane);
+//        JmonViewer jmonViewer = new JmonViewer();
+
+        // Menu items - top section
+<span class="nc" id="L43">        javafx.scene.control.MenuBar topMenuBar = new javafx.scene.control.MenuBar();</span>
+
+        // File menu
+<span class="nc" id="L46">        Menu fileMenu = new Menu(&quot;File&quot;);</span>
+<span class="nc" id="L47">        fileMenu.setId(&quot;fileMenu&quot;);</span>
+
+<span class="nc" id="L49">        Menu newMenu = new Menu(&quot;New&quot;);</span>
+<span class="nc" id="L50">        MenuItem newSectionMenuItem = new MenuItem(&quot;Section&quot;);</span>
+<span class="nc" id="L51">        newSectionMenuItem.setOnAction(newSectionEvent -&gt; {</span>
+<span class="nc" id="L52">            System.out.println(&quot;New section&quot;);</span>
+
+<span class="nc" id="L54">            HBox editHBox = new HBox();</span>
+<span class="nc" id="L55">            editHBox.setStyle(&quot;-fx-background-color: aliceblue; -fx-effect: dropshadow(gaussian, black, 30, 0, 0, 1)&quot;);</span>
+
+<span class="nc" id="L57">            HBox newSectionHBox = new HBox();</span>
+<span class="nc" id="L58">            newSectionHBox.setAlignment(Pos.CENTER_LEFT);</span>
+<span class="nc" id="L59">            Label newSectionLabel = new Label(&quot;Section name: &quot;);</span>
+<span class="nc" id="L60">            TextField newSectionTextField = new TextField();</span>
+<span class="nc" id="L61">            newSectionTextField.setPrefWidth(250);</span>
+<span class="nc" id="L62">            newSectionHBox.getChildren().addAll(newSectionLabel, newSectionTextField);</span>
+
+<span class="nc" id="L64">            HBox detailsHBox = new HBox();</span>
+<span class="nc" id="L65">            detailsHBox.getChildren().addAll(newSectionHBox);</span>
+
+<span class="nc" id="L67">            Button submitBtn = new Button(&quot;Submit&quot;);</span>
+<span class="nc" id="L68">            submitBtn.setStyle(&quot;-fx-background-color: #0073e7; -fx-text-fill: aliceblue;&quot;);</span>
+<span class="nc" id="L69">            submitBtn.setAlignment(Pos.CENTER_RIGHT);</span>
+<span class="nc" id="L70">            submitBtn.setOnAction(submitEvent -&gt; {</span>
+                try {
+<span class="nc" id="L72">                    DatabaseUtil.addSection(newSectionTextField.getText());</span>
+<span class="nc" id="L73">                    refreshContents();</span>
+<span class="nc" id="L74">                } catch (Exception ex) {</span>
+<span class="nc" id="L75">                    LOGGER.log(Level.SEVERE, &quot;Unable to create a new section: &quot;, ex);</span>
+<span class="nc" id="L76">                }</span>
+<span class="nc" id="L77">                borderPane.setBottom(null);</span>
+<span class="nc" id="L78">            });</span>
+
+<span class="nc" id="L80">            Button cancelBtn = new Button(&quot;Cancel&quot;);</span>
+<span class="nc" id="L81">            cancelBtn.setStyle(&quot;-fx-background-color: #0073e7; -fx-text-fill: aliceblue;&quot;);</span>
+<span class="nc" id="L82">            cancelBtn.setAlignment(Pos.CENTER_RIGHT);</span>
+<span class="nc" id="L83">            cancelBtn.setOnAction(ex -&gt; borderPane.setBottom(null));</span>
+
+<span class="nc" id="L85">            Region btnSpacer = new Region();</span>
+<span class="nc" id="L86">            btnSpacer.setMinWidth(5);</span>
+
+<span class="nc" id="L88">            HBox btnHBox = new HBox();</span>
+<span class="nc" id="L89">            btnHBox.getChildren().addAll(submitBtn, btnSpacer, cancelBtn);</span>
+
+<span class="nc" id="L91">            editHBox.getChildren().addAll(detailsHBox, btnHBox);</span>
+<span class="nc" id="L92">            editHBox.setPadding(new Insets(5));</span>
+<span class="nc" id="L93">            editHBox.setHgrow(detailsHBox, Priority.ALWAYS);</span>
+<span class="nc" id="L94">            editHBox.setAlignment(Pos.CENTER_LEFT);</span>
+<span class="nc" id="L95">            borderPane.setBottom(editHBox);</span>
+<span class="nc" id="L96">        });</span>
+
+<span class="nc" id="L98">        MenuItem newProductMenuItem = new MenuItem(&quot;Product&quot;);</span>
+<span class="nc" id="L99">        newProductMenuItem.setOnAction(newProductEvent -&gt; {</span>
+<span class="nc" id="L100">            System.out.println(&quot;New Product&quot;);</span>
+
+<span class="nc" id="L102">            HBox editHBox = new HBox();</span>
+<span class="nc" id="L103">            editHBox.setStyle(&quot;-fx-background-color: aliceblue; -fx-effect: dropshadow(gaussian, black, 30, 0, 0, 1)&quot;);</span>
+
+<span class="nc" id="L105">            HBox newProductHBox = new HBox();</span>
+<span class="nc" id="L106">            newProductHBox.setAlignment(Pos.CENTER_LEFT);</span>
+<span class="nc" id="L107">            Label newProductLabel = new Label(&quot;Product name: &quot;);</span>
+<span class="nc" id="L108">            TextField newProductTextField = new TextField();</span>
+<span class="nc" id="L109">            newProductTextField.setPrefWidth(250);</span>
+<span class="nc" id="L110">            newProductHBox.getChildren().addAll(newProductLabel, newProductTextField);</span>
+
+<span class="nc" id="L112">            HBox detailsHBox = new HBox();</span>
+<span class="nc" id="L113">            detailsHBox.getChildren().addAll(newProductHBox);</span>
+
+<span class="nc" id="L115">            Button submitBtn = new Button(&quot;Submit&quot;);</span>
+<span class="nc" id="L116">            submitBtn.setStyle(&quot;-fx-background-color: #0073e7; -fx-text-fill: aliceblue;&quot;);</span>
+<span class="nc" id="L117">            submitBtn.setAlignment(Pos.CENTER_RIGHT);</span>
+<span class="nc" id="L118">            submitBtn.setOnAction(submitEvent -&gt; {</span>
+                try {
+<span class="nc" id="L120">                    DatabaseUtil.addProduct(newProductTextField.getText());</span>
+<span class="nc" id="L121">                    refreshContents();</span>
+<span class="nc" id="L122">                } catch (Exception ex) {</span>
+<span class="nc" id="L123">                    LOGGER.log(Level.SEVERE, &quot;Unable to create a new product: &quot;, ex);</span>
+<span class="nc" id="L124">                }</span>
+<span class="nc" id="L125">                borderPane.setBottom(null);</span>
+<span class="nc" id="L126">            });</span>
+
+<span class="nc" id="L128">            Button cancelBtn = new Button(&quot;Cancel&quot;);</span>
+<span class="nc" id="L129">            cancelBtn.setStyle(&quot;-fx-background-color: #0073e7; -fx-text-fill: aliceblue;&quot;);</span>
+<span class="nc" id="L130">            cancelBtn.setAlignment(Pos.CENTER_RIGHT);</span>
+<span class="nc" id="L131">            cancelBtn.setOnAction(ex -&gt; borderPane.setBottom(null));</span>
+
+<span class="nc" id="L133">            Region btnSpacer = new Region();</span>
+<span class="nc" id="L134">            btnSpacer.setMinWidth(5);</span>
+
+<span class="nc" id="L136">            HBox btnHBox = new HBox();</span>
+<span class="nc" id="L137">            btnHBox.getChildren().addAll(submitBtn, btnSpacer, cancelBtn);</span>
+
+<span class="nc" id="L139">            editHBox.getChildren().addAll(detailsHBox, btnHBox);</span>
+<span class="nc" id="L140">            editHBox.setPadding(new Insets(5));</span>
+<span class="nc" id="L141">            editHBox.setHgrow(detailsHBox, Priority.ALWAYS);</span>
+<span class="nc" id="L142">            editHBox.setAlignment(Pos.CENTER_LEFT);</span>
+<span class="nc" id="L143">            borderPane.setBottom(editHBox);</span>
+<span class="nc" id="L144">        });</span>
+
+<span class="nc" id="L146">        newMenu.getItems().addAll(newProductMenuItem, newSectionMenuItem);</span>
+
+<span class="nc" id="L148">        MenuItem exitMenu = new MenuItem(&quot;Exit&quot;);</span>
+<span class="nc" id="L149">        exitMenu.setId(&quot;exitMenu&quot;);</span>
+<span class="nc" id="L150">        exitMenu.setOnAction(e -&gt; {</span>
+<span class="nc" id="L151">            boolean confirmExit = ConfirmBox.display(&quot;Exit Test Tracker&quot;, &quot;Are you sure you want to exit?&quot;);</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">            if (confirmExit) {</span>
+<span class="nc" id="L153">                Platform.exit();</span>
+            }
+<span class="nc" id="L155">        });</span>
+
+<span class="nc" id="L157">        fileMenu.getItems().addAll(newMenu, exitMenu);</span>
+
+        // Edit menu
+<span class="nc" id="L160">        Menu editMenu = new Menu(&quot;Edit&quot;);</span>
+<span class="nc" id="L161">        Menu deleteMenuItem = new Menu(&quot;Delete&quot;);</span>
+<span class="nc" id="L162">        MenuItem deleteProductMenuItem = new MenuItem(&quot;Product&quot;);</span>
+<span class="nc" id="L163">        deleteProductMenuItem.setOnAction(deleteProductEvent -&gt; {</span>
+<span class="nc" id="L164">            DeletionBox.display(&quot;Delete Product?&quot;, &quot;Are you sure you want to delete this product?&quot;, DatabaseUtil.getProducts(), DatabaseUtil.getProductIDs());</span>
+<span class="nc" id="L165">            refreshContents();</span>
+<span class="nc" id="L166">        });</span>
+<span class="nc" id="L167">        MenuItem deleteSectionMenuItem = new MenuItem(&quot;Section&quot;);</span>
+<span class="nc" id="L168">        deleteSectionMenuItem.setOnAction(deleteSectionEvent -&gt; {</span>
+<span class="nc" id="L169">            DeletionBox.display(&quot;Delete Section?&quot;, &quot;Are you sure you want to delete this Section?&quot;, DatabaseUtil.getSections(), DatabaseUtil.getSectionIDs());</span>
+<span class="nc" id="L170">            refreshContents();</span>
+<span class="nc" id="L171">        });</span>
+
+<span class="nc" id="L173">        deleteMenuItem.getItems().addAll(deleteProductMenuItem, deleteSectionMenuItem);</span>
+<span class="nc" id="L174">        editMenu.getItems().addAll(deleteMenuItem);</span>
+
+        // View menu
+<span class="nc" id="L177">        Menu viewMenu = new Menu(&quot;View&quot;);</span>
+<span class="nc" id="L178">        MenuItem testsMenuItem = new MenuItem(&quot;Tests&quot;);</span>
+<span class="nc" id="L179">        testsMenuItem.setOnAction(showTestsEvent -&gt; tabPane.getSelectionModel().select(0));</span>
+<span class="nc" id="L180">        MenuItem jmonsMenuItem = new MenuItem(&quot;Jmons&quot;);</span>
+<span class="nc" id="L181">        jmonsMenuItem.setOnAction(jmonsEvent -&gt; tabPane.getSelectionModel().select(1));</span>
+<span class="nc" id="L182">        viewMenu.getItems().addAll(testsMenuItem, jmonsMenuItem);</span>
+
+        // Refresh button
+<span class="nc" id="L185">        Button refreshBtn = new Button(&quot;Refresh&quot;);</span>
+<span class="nc" id="L186">        refreshBtn.setOnAction(e -&gt; refreshContents());</span>
+<span class="nc" id="L187">        topMenuBar.getMenus().addAll(fileMenu, editMenu, viewMenu);</span>
+<span class="nc" id="L188">        topMenuHBox.getChildren().addAll(topMenuBar, refreshBtn);</span>
+<span class="nc" id="L189">        topMenuHBox.setHgrow(topMenuBar, Priority.ALWAYS);</span>
+
+<span class="nc" id="L191">        return topMenuHBox;</span>
+    }
+
+    private void refreshContents() {
+<span class="nc" id="L195">        int tabIndex = tabPane.getSelectionModel().getSelectedIndex();</span>
+
+<span class="nc bnc" id="L197" title="All 2 branches missed.">        if (tabIndex == 0) {</span>
+<span class="nc" id="L198">            tabPane.getTabs().get(0).setContent(testViewer.display());</span>
+<span class="nc bnc" id="L199" title="All 2 branches missed.">        } else if (tabIndex == 1) {</span>
+<span class="nc" id="L200">            tabPane.getTabs().get(1).setContent(jmonViewer.display());</span>
+        }
+<span class="nc" id="L202">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

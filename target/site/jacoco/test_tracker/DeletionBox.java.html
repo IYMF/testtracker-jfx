@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DeletionBox.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">testtracker</a> &gt; <a href="index.source.html" class="el_package">test_tracker</a> &gt; <span class="el_source">DeletionBox.java</span></div><h1>DeletionBox.java</h1><pre class="source lang-java linenums">package test_tracker;
+
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+class DeletionBox {
+
+    private DeletionBox() {}
+
+    static void display(String title, String message, ObservableList&lt;String&gt; items, ObservableList&lt;Integer&gt; itemIDs) {
+<span class="nc" id="L21">        Stage window = new Stage();</span>
+<span class="nc" id="L22">        window.initModality(Modality.APPLICATION_MODAL);</span>
+<span class="nc" id="L23">        window.setTitle(title);</span>
+<span class="nc" id="L24">        window.setMinWidth(250.0D);</span>
+<span class="nc" id="L25">        Label label = new Label(message);</span>
+
+<span class="nc" id="L27">        ListView&lt;String&gt; itemsListView = new ListView&lt;&gt;(items);</span>
+<span class="nc" id="L28">        itemsListView.setPrefHeight(20 * (items.size() + 1.2));</span>
+<span class="nc" id="L29">        itemsListView.setPrefWidth(50);</span>
+
+<span class="nc" id="L31">        Button selectBtn = new Button(&quot;Confirm&quot;);</span>
+<span class="nc" id="L32">        selectBtn.setOnAction(e -&gt; {</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">            if (itemsListView.getSelectionModel().isEmpty()) {</span>
+<span class="nc" id="L34">                Alert alert = new Alert(Alert.AlertType.INFORMATION);</span>
+<span class="nc" id="L35">                alert.setTitle(&quot;Information&quot;);</span>
+<span class="nc" id="L36">                alert.setHeaderText(&quot;Select an item first&quot;);</span>
+<span class="nc" id="L37">                alert.setContentText(&quot;You must select an item before you can delete it.&quot;);</span>
+<span class="nc" id="L38">                alert.showAndWait();</span>
+<span class="nc" id="L39">                System.out.println(&quot;empty&quot;);</span>
+<span class="nc" id="L40">            } else {</span>
+<span class="nc" id="L41">                int itemID = itemIDs.get(itemsListView.getSelectionModel().getSelectedIndex());</span>
+
+<span class="nc bnc" id="L43" title="All 2 branches missed.">                if (title.contains(&quot;Product&quot;)) {</span>
+<span class="nc" id="L44">                    DatabaseUtil.deleteProduct(itemID);</span>
+                } else {
+<span class="nc" id="L46">                    DatabaseUtil.deleteSection(itemID);</span>
+                }
+
+<span class="nc" id="L49">                window.close();</span>
+            }
+<span class="nc" id="L51">        });</span>
+
+<span class="nc" id="L53">        Button cancelBtn = new Button(&quot;Cancel&quot;);</span>
+<span class="nc" id="L54">        cancelBtn.setOnAction(e -&gt; window.close());</span>
+
+<span class="nc" id="L56">        HBox btnsHbox = new HBox(10.0D);</span>
+<span class="nc" id="L57">        btnsHbox.setAlignment(Pos.CENTER);</span>
+<span class="nc" id="L58">        btnsHbox.setPadding(new Insets(0.0D, 0.0D, 20.0D, 0.0D));</span>
+<span class="nc" id="L59">        btnsHbox.getChildren().addAll(selectBtn, cancelBtn);</span>
+
+<span class="nc" id="L61">        VBox layout = new VBox(10.0D);</span>
+<span class="nc" id="L62">        layout.getChildren().addAll(label, itemsListView, btnsHbox);</span>
+<span class="nc" id="L63">        layout.setAlignment(Pos.CENTER);</span>
+<span class="nc" id="L64">        Scene scene = new Scene(layout);</span>
+<span class="nc" id="L65">        window.setScene(scene);</span>
+<span class="nc" id="L66">        window.showAndWait();</span>
+<span class="nc" id="L67">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

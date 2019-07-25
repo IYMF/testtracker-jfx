@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JmonViewer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">testtracker</a> &gt; <a href="index.source.html" class="el_package">test_tracker</a> &gt; <span class="el_source">JmonViewer.java</span></div><h1>JmonViewer.java</h1><pre class="source lang-java linenums">package test_tracker;
+
+import javafx.application.Application;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.layout.*;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Label;
+
+import java.util.regex.Pattern;
+
+import javafx.scene.layout.VBox;
+import javafx.scene.web.WebView;
+import javafx.stage.Stage;
+
+public class JmonViewer extends Application {
+
+<span class="nc" id="L20">    JmonViewer(){}</span>
+
+    @Override
+    public void start(Stage primaryStage) {
+<span class="nc" id="L24">        display();</span>
+<span class="nc" id="L25">    }</span>
+
+    ScrollPane display() {
+<span class="nc" id="L28">        ObservableList&lt;Table&gt; listOfTables = DatabaseUtil.getTests();</span>
+<span class="nc" id="L29">        ObservableList&lt;Integer&gt; productIDs = DatabaseUtil.getProductIDs();</span>
+<span class="nc" id="L30">        ObservableList&lt;String&gt; products = DatabaseUtil.getProducts();</span>
+
+<span class="nc" id="L32">        VBox allContentVB = new VBox();</span>
+<span class="nc" id="L33">        allContentVB.setStyle(&quot;-fx-background-color: aliceblue&quot;);</span>
+
+        // List all products
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        for (int i = 0; i &lt; products.size(); i++) {</span>
+<span class="nc" id="L37">            HBox sectionHbox = new HBox();</span>
+<span class="nc" id="L38">            sectionHbox.setAlignment(Pos.CENTER);</span>
+<span class="nc" id="L39">            sectionHbox.setStyle(&quot;-fx-background-color: #323435;-fx-text-fill: aliceblue; -fx-font-size: 16px; -fx-label-padding: 0; -fx-padding: 0;&quot;);</span>
+<span class="nc" id="L40">            sectionHbox.setPadding(new Insets(5.0D, 0.0D, 0, 0.0D));</span>
+
+<span class="nc" id="L42">            Label sectionHeader = new Label(products.get(i));</span>
+<span class="nc" id="L43">            sectionHbox.setPadding(new Insets(0));</span>
+<span class="nc" id="L44">            sectionHeader.setStyle(&quot;-fx-text-fill: aliceblue; -fx-font-weight: 700&quot;);</span>
+<span class="nc" id="L45">            sectionHbox.getChildren().add(sectionHeader);</span>
+
+<span class="nc" id="L47">            allContentVB.getChildren().add(sectionHbox);</span>
+
+<span class="nc" id="L49">            FlowPane productSection = new FlowPane();</span>
+<span class="nc" id="L50">            productSection.setAlignment(Pos.CENTER);</span>
+
+            // Display jmons for each section
+<span class="nc bnc" id="L53" title="All 2 branches missed.">            for (int j = 0; j &lt; listOfTables.size(); j++) {</span>
+                // Check the rows of each table for &quot;jmon&quot; if they are in the same product group
+<span class="nc bnc" id="L55" title="All 2 branches missed.">                if (listOfTables.get(j).getProductID() == productIDs.get(i)) {</span>
+<span class="nc" id="L56">                    ObservableList&lt;Row&gt; rows = listOfTables.get(j).getRows();</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">                    for (int k = 0; k &lt; rows.size(); k++) {</span>
+                        // If row description contains &quot;jmon&quot; create jmon web views
+<span class="nc bnc" id="L59" title="All 2 branches missed.">                        if (Pattern.compile(Pattern.quote(&quot;jmon&quot;), Pattern.CASE_INSENSITIVE).matcher(rows.get(k).getDescription()).find()) {</span>
+
+<span class="nc" id="L61">                            String linkAddress = &quot;151.155.&quot; + rows.get(k).getIp();</span>
+<span class="nc" id="L62">                            Hyperlink testName = new Hyperlink(listOfTables.get(j).getTableTitle() + &quot; - &quot; + linkAddress);</span>
+<span class="nc" id="L63">                            testName.setOnAction(linkEvent -&gt; getHostServices().showDocument(&quot;http://&quot; + linkAddress));</span>
+<span class="nc" id="L64">                            testName.setAlignment(Pos.CENTER);</span>
+<span class="nc" id="L65">                            testName.setMaxWidth(Double.MAX_VALUE);</span>
+<span class="nc" id="L66">                            testName.setStyle(&quot;-fx-background-color: #0073e7; -fx-text-fill: aliceblue; -fx-font-weight: 700&quot;);</span>
+
+<span class="nc" id="L68">                            WebView jmon = new WebView();</span>
+<span class="nc" id="L69">                            jmon.setZoom(.70);</span>
+<span class="nc" id="L70">                            jmon.setPrefHeight(475);</span>
+<span class="nc" id="L71">                            jmon.getEngine().load(&quot;http://151.155.&quot; + rows.get(k).getIp());</span>
+
+<span class="nc" id="L73">                            VBox testNameAndJmon = new VBox();</span>
+<span class="nc" id="L74">                            testNameAndJmon.setStyle(&quot;-fx-border-color: black&quot;);</span>
+<span class="nc" id="L75">                            testNameAndJmon.getChildren().addAll(testName, jmon);</span>
+
+<span class="nc" id="L77">                            VBox pseudoMargin = new VBox();</span>
+<span class="nc" id="L78">                            pseudoMargin.getChildren().addAll(testNameAndJmon);</span>
+<span class="nc" id="L79">                            pseudoMargin.setPadding(new Insets(3));</span>
+
+<span class="nc" id="L81">                            productSection.getChildren().addAll(pseudoMargin);</span>
+                        }
+                    }
+                }
+            }
+
+<span class="nc" id="L87">            allContentVB.getChildren().add(productSection);</span>
+        }
+
+
+<span class="nc" id="L91">        ScrollPane allContentSP = new ScrollPane();</span>
+<span class="nc" id="L92">        allContentSP.setFitToWidth(true);</span>
+<span class="nc" id="L93">        allContentSP.setContent(allContentVB);</span>
+<span class="nc" id="L94">        return allContentSP;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
